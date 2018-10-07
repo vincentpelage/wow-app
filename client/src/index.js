@@ -11,7 +11,7 @@ import App from "./containers/App";
 ReactDOM.render(
   <Provider store={configureStore()}>
     <Router>
-      <App/>
+      <App />
     </Router>
   </Provider>,
   document.getElementById("root")
