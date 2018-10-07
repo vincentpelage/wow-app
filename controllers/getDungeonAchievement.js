@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const pveAchievementsList = [
+const pveAchievementsDungeonsList = [
   {
     name: "Atal'Dazar",
     id: 12824,
@@ -168,7 +168,7 @@ const pveAchievementsList = [
 module.exports = function getDungeonAchievement(req, res) {
   axios
     .get(
-      "https://eu.api.battle.net/wow/character/Archimonde/Chouetteman?fields=achievements&locale=fr_FR&apikey=" +
+      "https://eu.api.battle.net/wow/character/Archimonde/Skiel?fields=achievements&locale=fr_FR&apikey=" +
         process.env.WOW_API_KEY
     )
     .then(function(response) {
@@ -177,7 +177,7 @@ module.exports = function getDungeonAchievement(req, res) {
       const apiAchievementsList =
         response.data.achievements.achievementsCompleted;
 
-      const result = pveAchievementsList.map(obj => {
+      const result = pveAchievementsDungeonsList.map(obj => {
         return apiAchievementsList.indexOf(obj.id) > -1
           ? { ...obj, done: true }
           : { ...obj, done: false };

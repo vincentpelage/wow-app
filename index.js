@@ -3,6 +3,7 @@ const path = require('path');
 require('dotenv').config();
 
 const getDungeonAchievement = require("./controllers/getDungeonAchievement");
+const getRaidAchievement = require("./controllers/getRaidAchievement");
 
 const app = express();
 
@@ -13,7 +14,8 @@ app.get('/', (req, res) => {
     res.send('Express Server Launched')
 });
 
-app.get('/pveAchievements', getDungeonAchievement);
+app.get('/dungeonsAchievements', getDungeonAchievement);
+app.get('/raidsAchievements', getRaidAchievement);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
