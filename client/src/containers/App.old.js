@@ -8,16 +8,16 @@ import App from "../App";
 
 
 const mapStateToProps = state => ({
-    ...state
+  ...state
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(actions, dispatch)
+  actions: bindActionCreators(actions, dispatch)
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(App)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
 );
