@@ -1,21 +1,22 @@
 import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from "redux";
+import { withRouter } from "react-router-dom";
 
 import * as actions from "../actions/simpleTool/simpleAction";
-// import { simpleAction } from "../actions/simpleAction";
-// import { anotherAction } from "../actions/anotherAction";
 
-import App from "../App"
+import App from "../App";
 
 const mapStateToProps = state => ({
-    ...state
+  ...state
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(actions, dispatch),
+  actions: bindActionCreators(actions, dispatch)
 });
 
-export default connect(
+export default withRouter(
+  connect(
     mapStateToProps,
     mapDispatchToProps
-)(App);
+  )(App)
+);
