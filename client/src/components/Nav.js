@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 // import DungeonAchievements from "../views/DungeonAchievements";
 // import Home from "../views/Home";
@@ -83,7 +84,7 @@ const WrapperNav = styled.div`
   }
 `;
 
-const MenuLink = styled.a`
+const MenuLink = styled(Link)`
   padding: 0;
   color: #fff;
   background: ${props => props.theme.medium};

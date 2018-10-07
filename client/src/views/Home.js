@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-// import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import HordeIcon from "../assets/images/horde.png";
 import Sylvanas from "../assets/images/sylvanas.jpg";
 import AllianceIcon from "../assets/images/alliance.png";
 import Anduin from "../assets/images/anduin.jpg";
 import { themeHorde, themeAlliance, global } from "../styles/theme/globalStyle";
-// import { faction } from "../App.js";
+import { faction } from "../App.js";
 
 const WrapperHome = styled.div`
   overflow: hidden;
@@ -19,7 +19,7 @@ const WrapperHome = styled.div`
   }
 `;
 
-const Visuel = styled.a`
+const Visuel = styled(Link)`
   position: relative;
   display: block;
   flex-basis: 50%;
@@ -118,8 +118,8 @@ const Home = ({ selectTheme }) => {
   return (
     <WrapperHome>
       <Horde
-      // to="/hauts-faits-donjon"
-      // onClick={() => selectTheme(faction.horde)}
+      to="/hauts-faits-donjon"
+      onClick={() => selectTheme(faction.horde)}
       >
         <HordeBanner>
           <Title>Pour la Horde</Title>
@@ -128,7 +128,7 @@ const Home = ({ selectTheme }) => {
       </Horde>
       <Alliance
         to="/hauts-faits-donjon"
-        // onClick={() => selectTheme(faction.alliance)}
+        onClick={() => selectTheme(faction.alliance)}
       >
         <AllianceBanner>
           <Icon src={AllianceIcon} />
