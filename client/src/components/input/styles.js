@@ -34,7 +34,7 @@ export const getInputStyles = props => {
     max-width: 100%;
     padding: 0 8px;
     align-items: center;
-    border-radius: 3px;
+    border-radius: 4px;
     line-height: 1.42857;
     word-wrap: break-word;
     font-size: 14px;

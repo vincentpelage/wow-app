@@ -3,23 +3,71 @@ import styled from "styled-components";
 import Banner from "../components/Banner";
 import Nav from "../components/Nav";
 import Input from "../components/input/index";
+import Select from "react-select";
 
-const WrapperInput = styled.div`
+const WrapperForm = styled.div`
   z-index: 3;
   margin-top: 16px;
 `;
 
-const DungeonAchievements = ({ toggleTheme }) => {
-  return (
-    <React.Fragment>
-      <Nav toggleTheme={toggleTheme} />
-      <Banner title="hauts-faits en donjons">
-        <WrapperInput>
-          <Input placeholder="Pseudo" />
-        </WrapperInput>
-      </Banner>
-    </React.Fragment>
-  );
-};
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" }
+];
+
+class DungeonAchievements extends React.Component {
+  state = {
+    pseudo: "",
+    selectedOption: null
+  };
+
+  handleInputChange = event => {
+    this.setState({ pseudo: event.target.value });
+  };
+
+  handleSelectChange = selectedOption => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  };
+
+  render() {
+    const { toggleTheme } = this.props;
+    const { selectedOption, pseudo } = this.state;
+    const customSelectStyle = {
+      placeholder: () => ({
+        fontFamily: "Roboto",
+        fontWeight: "300"
+      }),
+      menuList: () => ({
+        fontFamily: "Roboto",
+        fontWeight: "300"
+      })
+    };
+    return (
+      <React.Fragment>
+        <Nav toggleTheme={toggleTheme} />
+        <Banner title="hauts-faits en donjons">
+          <WrapperForm>
+            <Input
+              placeholder="Pseudo"
+              type="text"
+              onChange={this.handleInputChange}
+              value={pseudo}
+            />
+            <Select
+              value={selectedOption}
+              onChange={this.handleSelectChange}
+              options={options}
+              placeholder="Royaume"
+              styles={customSelectStyle}
+              isSearchable={false}
+            />
+          </WrapperForm>
+        </Banner>
+      </React.Fragment>
+    );
+  }
+}
 
 export default DungeonAchievements;
