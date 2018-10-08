@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Home from "./views/Home";
-import DungeonAchievements from "./views/DungeonAchievements";
+import DungeonAchievements from "./containers/DungeonAchievements";
 import { themeHorde, themeAlliance } from "./styles/theme/globalStyle";
 import { ThemeProvider } from "styled-components";
 

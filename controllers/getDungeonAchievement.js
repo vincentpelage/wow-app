@@ -166,6 +166,7 @@ const pveAchievementsDungeonsList = [
 ];
 
 module.exports = function getDungeonAchievement(req, res) {
+  console.log(req.body)
   axios
     .get(
       "https://eu.api.battle.net/wow/character/Archimonde/Skiel?fields=achievements&locale=fr_FR&apikey=" +

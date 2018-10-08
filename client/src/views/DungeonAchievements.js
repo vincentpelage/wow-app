@@ -31,7 +31,13 @@ class DungeonAchievements extends React.Component {
     console.log(`Option selected:`, selectedOption);
   };
 
+  handleSubmit = () => {
+    this.props.actions.dungeonAchievementsAction();
+    console.log("Form Submit");
+  };
+
   render() {
+    console.log(this.props);
     const { toggleTheme } = this.props;
     const { selectedOption, pseudo } = this.state;
     const customSelectStyle = {
@@ -44,6 +50,7 @@ class DungeonAchievements extends React.Component {
         fontWeight: "300"
       })
     };
+
     return (
       <React.Fragment>
         <Nav toggleTheme={toggleTheme} />
@@ -63,6 +70,14 @@ class DungeonAchievements extends React.Component {
               styles={customSelectStyle}
               isSearchable={false}
             />
+            <button onClick={this.handleSubmit}>submit</button>
+            {this.props.dungeonAchievementsReducer.data && (
+              <pre>
+                {this.props.dungeonAchievementsReducer.data.map((obj, id) => (
+                  <li key={id}>{obj.name}</li>
+                ))}
+              </pre>
+            )}
           </WrapperForm>
         </Banner>
       </React.Fragment>
