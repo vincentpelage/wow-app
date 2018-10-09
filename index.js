@@ -31,6 +31,46 @@ app.get('/', (req, res) => {
     res.send('Express Server Launched')
 });
 
+const formValidator = (req, res, next) => {
+    const isNoSqlInjected = (item) => {
+        const contentFormat = /^((?!{).).*|((?!}).)$/;
+        const itemFormatted = item.replace(/(\s+)/g, '');
+        const find = itemFormatted.search(contentFormat);
+        return find;
+    };
+
+    if (req.body.form) {
+        const payLoad = Object.values(req.body.form);
+        const result = payLoad.map(item => isNoSqlInjected(item));
+
+        async function test() {
+            try {
+                const resultat = await result.indexOf(-1);
+                return resultat;
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+
+        test().then((result) => {
+            if (result > -1) {
+                console.log('form was not validate');
+                res.send({ message: 'false' });
+            }
+            else {
+                console.log('form was validate');
+                next();
+            }
+        });
+    }
+    else {
+        next();
+    }
+};
+
+app.use('/dungeonsAchievements', formValidator);
+
 app.post('/dungeonsAchievements', getDungeonAchievement);
 app.get('/raidsAchievements', getRaidAchievement);
 

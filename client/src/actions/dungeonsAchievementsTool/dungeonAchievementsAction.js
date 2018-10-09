@@ -3,10 +3,14 @@ import {
   GET_DUNGEONS_ACHIEVEMENTS_FROM_API
 } from "./actionTypes";
 
-export const dungeonAchievementsAction = () => dispatch => {
+export const dungeonAchievementsAction = (
+  pseudo,
+  selectedOption
+) => dispatch => {
   dispatch({
     type: GET_DUNGEONS_ACHIEVEMENTS,
-    payload: "result_of_dungeon_achievements"
+    payload: "result_of_dungeon_achievements",
+    inputData: { pseudo, selectedOption }
   });
 };
 

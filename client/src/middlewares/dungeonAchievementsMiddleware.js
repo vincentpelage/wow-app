@@ -7,19 +7,18 @@ const dungeonAchievementsMiddleware = store => next => action => {
   switch (action.type) {
     case GET_DUNGEONS_ACHIEVEMENTS: {
       axios
-        .post(
-          "/dungeonsAchievements",
-          {
-            nickname: "skiel",
-            kingdom: "archimonde"
+        .post("/dungeonsAchievements", {
+          form: {
+            nickname: action.inputData.pseudo,
+            kingdom: action.inputData.selectedOption
           }
-        )
+        })
         .then(({ data }) => {
-            // console.log(data);
-            store.dispatch(dungeonAchievementsActionFromAPi(data));
+          console.log("data", data);
+          store.dispatch(dungeonAchievementsActionFromAPi(data));
         })
         .catch(() => {
-          console.log('Request did not work');
+          console.log("Request did not work");
         });
       break;
     }
