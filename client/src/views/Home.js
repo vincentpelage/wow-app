@@ -118,8 +118,8 @@ const Home = ({ selectTheme }) => {
   return (
     <WrapperHome>
       <Horde
-      to="/hauts-faits-donjon"
-      onClick={() => selectTheme(faction.horde)}
+        to="/hauts-faits-donjon"
+        onClick={() => selectTheme(faction.horde)}
       >
         <HordeBanner>
           <Title>Pour la Horde</Title>

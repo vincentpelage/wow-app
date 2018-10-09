@@ -4,7 +4,7 @@ import Sylvanas from "../../assets/images/sylvanas.jpg";
 import Anduin from "../../assets/images/anduin.jpg";
 
 export const global = {
-  borderRadius: "6px",
+  borderRadius: "3px",
   maxMobile: "767px",
   minTablet: "768px",
   maxTablet: "1023px",
@@ -50,11 +50,18 @@ injectGlobal`
       font-size: 16px;
     }
   }
+  button {
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+  }
   h1 {
     font-family: LifeCraftFont, sans-serif;
     font-weight: normal;
-    font-size: 55px;
+    font-size: 45px;
     margin: 0;
+    @media (min-width: ${global.minTablet}) {
+      font-size: 55px;
+    }
   }
   ul {
     margin: 0;

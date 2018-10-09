@@ -94,6 +94,7 @@ const MenuLink = styled(Link)`
   font-size: 12px;
   flex: 0 0 25%;
   text-align: center;
+  text-decoration: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -211,7 +212,7 @@ class Nav extends Component {
             <IconDungeon />
             <Name>Hauts-faits donjon</Name>
           </MenuLink>
-          <MenuLink to="/hauts-faits-raids">
+          <MenuLink to="/hauts-faits-raid">
             <IconRaid />
             <Name>Hauts-faits raid</Name>
           </MenuLink>
