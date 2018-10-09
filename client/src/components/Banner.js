@@ -4,7 +4,7 @@ import styled from "styled-components";
 const WrapperBanner = styled.div`
   background-image: url(${props => props.theme.image});
   width: 100%;
-  height: 100vh;
+  height: ${props => (props.isResultActive ? "500px" : "100vh")};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,6 +14,8 @@ const WrapperBanner = styled.div`
   background-position: center;
   position: relative;
   z-index: 0;
+  transition: all 0.2s ease-in-out;
+
   &::after {
     content: "";
     position: absolute;
@@ -33,9 +35,9 @@ const Title = styled.h1`
   z-index: 1;
 `;
 
-const Banner = ({ title, children }) => {
+const Banner = ({ title, isResultActive, children }) => {
   return (
-    <WrapperBanner title={title}>
+    <WrapperBanner isResultActive={isResultActive}>
       <Title>{title}</Title>
       {children}
     </WrapperBanner>
