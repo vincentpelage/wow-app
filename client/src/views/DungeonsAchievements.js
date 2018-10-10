@@ -4,6 +4,7 @@ import Banner from "../components/Banner";
 import Nav from "../components/Nav";
 import Input from "../components/input/index";
 import { optionsKingdom } from "../datas/kingdom";
+import { optionsRegions } from "../datas/regions";
 import { BannerButton } from "../components/button";
 import Select from "../components/select";
 import Result from "../components/Result";
@@ -39,6 +40,7 @@ class DungeonsAchievements extends React.Component {
   state = {
     characterName: "",
     characterKingdom: "",
+      characterRegion: "",
     emptyInputAlert: "",
     isResultActive: false
   };
@@ -61,11 +63,15 @@ class DungeonsAchievements extends React.Component {
     this.setState({ characterKingdom: characterKingdom.value });
   };
 
-  handleSubmit = () => {
-    const { characterName, characterKingdom } = this.state;
+    handleSelectRegionChange = characterRegion => {
+    this.setState({ characterRegion: characterRegion.value });
+  };
 
-    if (characterName.length > 0 && characterKingdom.length > 0) {
-      this.props.actions.dungeonAchievementsAction(characterName, characterKingdom);
+  handleSubmit = () => {
+    const { characterName, characterKingdom, characterRegion } = this.state;
+
+    if (characterName.length > 0 && characterKingdom.length > 0 && characterRegion.length > 0) {
+      this.props.actions.dungeonAchievementsAction(characterName, characterKingdom, characterRegion);
       this.setState({ emptyInputAlert: "" });
     } else {
       this.handleEmptyInput();
@@ -73,18 +79,14 @@ class DungeonsAchievements extends React.Component {
   };
 
   handleEmptyInput = () => {
-    const { characterName, characterKingdom } = this.state;
-    if (characterName.length === 0 && characterKingdom.length > 0) {
+    const { characterName, characterKingdom, characterRegion } = this.state;
+    if (characterName.length === 0 || characterKingdom.length === 0 || characterRegion.length === 0) {
       this.setState({
-        emptyInputAlert: "Veuillez renseigner votre characterName :-)"
-      });
-    } else if (characterKingdom.length === 0 && characterName.length > 0) {
-      this.setState({
-        emptyInputAlert: "Veuillez renseigner votre royaume :-)"
+        emptyInputAlert: "Veuillez renseigner tous les champs :-)"
       });
     } else {
       this.setState({
-        emptyInputAlert: "Veuillez renseigner votre characterName et votre royaume :-)"
+        emptyInputAlert: ""
       });
     }
   };
@@ -115,6 +117,15 @@ class DungeonsAchievements extends React.Component {
                 classNamePrefix="react-select"
               />
             </WrapperSelect>
+            <WrapperSelect>
+            <Select
+              onChange={this.handleSelectRegionChange}
+              options={optionsRegions}
+              placeholder="Region"
+              className="react-select-container"
+              classNamePrefix="react-select"
+            />
+          </WrapperSelect>
             <BannerButton
               fullWidth
               size="large"
