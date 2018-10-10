@@ -16,9 +16,17 @@ class App extends Component {
     theme: themeHorde
   };
 
+    componentWillMount(){
+      if(localStorage.getItem("faction")){
+        const themeLocalStorage = JSON.parse(localStorage.getItem("faction"));
+        this.setState({theme: themeLocalStorage});
+      }
+    }
+
   selectTheme = faction => {
     let theme;
     faction === "horde" ? (theme = themeHorde) : (theme = themeAlliance);
+    localStorage.setItem("faction", JSON.stringify(theme))
     this.setState({ theme });
   };
 
