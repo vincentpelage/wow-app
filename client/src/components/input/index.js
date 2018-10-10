@@ -21,16 +21,16 @@ class Input extends React.Component {
   render() {
     const {
       cursor,
-      width,
       defaultValue,
       placeholder,
       type,
       value,
-      onChange
+      onChange,
+      fullWidth
     } = this.props;
 
     return (
-      <InputWrapper cursor={cursor} width={width}>
+      <InputWrapper cursor={cursor} fullWidth={fullWidth}>
         <InputElement
           defaultValue={defaultValue}
           placeholder={placeholder}

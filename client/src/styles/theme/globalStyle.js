@@ -63,6 +63,16 @@ injectGlobal`
       font-size: 55px;
     }
   }
+  h2 {
+    margin: 0;
+    font-family: LifeCraftFont, sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    margin: 0;
+    @media (min-width: ${global.minTablet}) {
+      font-size: 24px;
+    }
+  }
   ul {
     margin: 0;
     padding: 0;

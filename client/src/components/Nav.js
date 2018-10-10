@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-// import DungeonAchievements from "../views/DungeonAchievements";
-// import Home from "../views/Home";
 import { global } from "../styles/theme/globalStyle";
 import {
   IconDungeon,
@@ -206,19 +204,19 @@ class Nav extends Component {
         <WrapperNav isBurgerActive={isBurgerActive}>
           <HomeLink to="/">
             <IconHome />
-            <Name>Accueil</Name>
+            <Name>Home</Name>
           </HomeLink>
           <MenuLink to="/hauts-faits-donjon">
             <IconDungeon />
-            <Name>Hauts-faits donjon</Name>
+            <Name>Dungeon Achievements</Name>
           </MenuLink>
           <MenuLink to="/hauts-faits-raid">
             <IconRaid />
-            <Name>Hauts-faits raid</Name>
+            <Name>Raid Achievements</Name>
           </MenuLink>
           <MenuLink to="/hauts-faits-pvp">
             <IconPvp />
-            <Name>Hauts-faits PVP</Name>
+            <Name>PVP Achievements</Name>
           </MenuLink>
         </WrapperNav>
         <ButtonFaction onClick={toggleTheme}>

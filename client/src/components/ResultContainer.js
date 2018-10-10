@@ -8,10 +8,10 @@ const WrapperResult = styled.div`
   display: ${props => (props.isResultActive ? "block" : "none")};
 `;
 
-const Result = ({ isResultActive, children }) => {
+const ResultContainer = ({ isResultActive, children }) => {
   return (
     <WrapperResult isResultActive={isResultActive}>{children}</WrapperResult>
   );
 };
 
-export default Result;
+export default ResultContainer;
