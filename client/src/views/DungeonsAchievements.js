@@ -35,10 +35,10 @@ const WrapperSelect = styled.div`
   }
 `;
 
-class DungeonAchievements extends React.Component {
+class DungeonsAchievements extends React.Component {
   state = {
-    pseudo: "",
-    selectedKingdom: "",
+    characterName: "",
+    characterKingdom: "",
     emptyInputAlert: "",
     isResultActive: false
   };
@@ -53,19 +53,19 @@ class DungeonAchievements extends React.Component {
   }
 
   handleInputChange = event => {
-    const pseudo = event.target.value.trim();
-    this.setState({ pseudo });
+    const characterName = event.target.value.trim();
+    this.setState({ characterName });
   };
 
-  handleSelectChange = selectedKingdom => {
-    this.setState({ selectedKingdom: selectedKingdom.value });
+  handleSelectChange = characterKingdom => {
+    this.setState({ characterKingdom: characterKingdom.value });
   };
 
   handleSubmit = () => {
-    const { pseudo, selectedKingdom } = this.state;
+    const { characterName, characterKingdom } = this.state;
 
-    if (pseudo.length > 0 && selectedKingdom.length > 0) {
-      this.props.actions.dungeonAchievementsAction(pseudo, selectedKingdom);
+    if (characterName.length > 0 && characterKingdom.length > 0) {
+      this.props.actions.dungeonAchievementsAction(characterName, characterKingdom);
       this.setState({ emptyInputAlert: "" });
     } else {
       this.handleEmptyInput();
@@ -73,25 +73,25 @@ class DungeonAchievements extends React.Component {
   };
 
   handleEmptyInput = () => {
-    const { pseudo, selectedKingdom } = this.state;
-    if (pseudo.length === 0 && selectedKingdom.length > 0) {
+    const { characterName, characterKingdom } = this.state;
+    if (characterName.length === 0 && characterKingdom.length > 0) {
       this.setState({
-        emptyInputAlert: "Veuillez renseigner votre pseudo :-)"
+        emptyInputAlert: "Veuillez renseigner votre characterName :-)"
       });
-    } else if (selectedKingdom.length === 0 && pseudo.length > 0) {
+    } else if (characterKingdom.length === 0 && characterName.length > 0) {
       this.setState({
         emptyInputAlert: "Veuillez renseigner votre royaume :-)"
       });
     } else {
       this.setState({
-        emptyInputAlert: "Veuillez renseigner votre pseudo et votre royaume :-)"
+        emptyInputAlert: "Veuillez renseigner votre characterName et votre royaume :-)"
       });
     }
   };
 
   render() {
     const { toggleTheme } = this.props;
-    const { pseudo, isResultActive } = this.state;
+    const { characterName, isResultActive } = this.state;
 
     console.log(this.state.emptyInputAlert);
 
@@ -101,16 +101,16 @@ class DungeonAchievements extends React.Component {
         <Banner title="hauts-faits en donjons" isResultActive={isResultActive}>
           <WrapperForm>
             <Input
-              placeholder="Pseudo"
+              placeholder="Character"
               type="text"
               onChange={this.handleInputChange}
-              value={pseudo}
+              value={characterName}
             />
             <WrapperSelect>
               <Select
                 onChange={this.handleSelectChange}
                 options={optionsKingdom}
-                placeholder="Royaume"
+                placeholder="Kingdom"
                 className="react-select-container"
                 classNamePrefix="react-select"
               />
@@ -141,4 +141,4 @@ class DungeonAchievements extends React.Component {
   }
 }
 
-export default DungeonAchievements;
+export default DungeonsAchievements;

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Home from "./views/Home";
-import RaidAchievements from "./views/RaidAchievements";
-import DungeonAchievements from "./containers/DungeonAchievements";
+import RaidsAchievements from "./views/RaidsAchievements";
+import DungeonsAchievements from "./containers/DungeonsAchievements";
 import { themeHorde, themeAlliance } from "./styles/theme/globalStyle";
 import { ThemeProvider } from "styled-components";
 
@@ -40,12 +40,12 @@ class App extends Component {
           <Route
             path="/hauts-faits-donjon"
             render={() => (
-              <DungeonAchievements toggleTheme={this.toggleTheme} />
+              <DungeonsAchievements toggleTheme={this.toggleTheme} />
             )}
           />
           <Route
             path="/hauts-faits-raid"
-            render={() => <RaidAchievements toggleTheme={this.toggleTheme} />}
+            render={() => <RaidsAchievements toggleTheme={this.toggleTheme} />}
           />
         </div>
       </ThemeProvider>

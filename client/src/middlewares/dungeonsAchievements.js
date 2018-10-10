@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { GET_DUNGEONS_ACHIEVEMENTS } from "../actions/dungeonsAchievementsTool/actionTypes";
-import { dungeonAchievementsActionFromAPi } from "../actions/dungeonsAchievementsTool/dungeonAchievementsAction";
+import { GET_DUNGEONS_ACHIEVEMENTS } from "../actions/dungeonsAchievements/actionTypes";
+import { dungeonAchievementsActionFromAPi } from "../actions/dungeonsAchievements/dungeonsAchievements";
 
 const dungeonAchievementsMiddleware = store => next => action => {
   switch (action.type) {
@@ -9,12 +9,11 @@ const dungeonAchievementsMiddleware = store => next => action => {
       axios
         .post("/dungeonsAchievements", {
           form: {
-            nickname: action.inputData.pseudo,
-            kingdom: action.inputData.selectedOption
+            characterName: action.inputData.characterName,
+            characterKingdom: action.inputData.characterKingdom
           }
         })
         .then(({ data }) => {
-          console.log("data", data);
           store.dispatch(dungeonAchievementsActionFromAPi(data));
         })
         .catch(() => {

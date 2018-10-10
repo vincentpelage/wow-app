@@ -1,2 +1,0 @@
-export const SIMPLE_ACTION = 'SIMPLE_ACTION';
-export const ANOTHER_ACTION = 'ANOTHER_ACTION';

@@ -73,7 +73,7 @@ const pveAchievementsRaidsList = [
   }
 ];
 
-module.exports = function getDungeonAchievement(req, res) {
+module.exports = function raidsAchievements(req, res) {
   axios
     .get(
       "https://eu.api.battle.net/wow/character/Archimonde/Ponceman?fields=achievements&locale=fr_FR&apikey=" +

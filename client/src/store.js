@@ -2,8 +2,8 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers/rootReducer";
 
-import dungeonAchievementsMiddleware from "./middlewares/dungeonAchievementsMiddleware";
+import dungeonsAchievements from "./middlewares/dungeonsAchievements";
 
 export default function configureStore(initialState = {}) {
-  return createStore(rootReducer, applyMiddleware(thunk, dungeonAchievementsMiddleware));
+  return createStore(rootReducer, applyMiddleware(thunk, dungeonsAchievements));
 }
