@@ -10,7 +10,8 @@ const dungeonAchievementsMiddleware = store => next => action => {
         .post("/dungeonsAchievements", {
           form: {
             characterName: action.inputData.characterName,
-            characterKingdom: action.inputData.characterKingdom
+            characterKingdom: action.inputData.characterKingdom,
+              characterRegion: action.inputData.characterRegion,
           }
         })
         .then(({ data }) => {

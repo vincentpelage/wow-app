@@ -5,12 +5,13 @@ import {
 
 export const dungeonAchievementsAction = (
   characterName,
-  characterKingdom
+  characterKingdom,
+  characterRegion
 ) => dispatch => {
   dispatch({
     type: GET_DUNGEONS_ACHIEVEMENTS,
     payload: "result_of_dungeon_achievements",
-    inputData: { characterName, characterKingdom }
+    inputData: { characterName, characterKingdom, characterRegion }
   });
 };
 
