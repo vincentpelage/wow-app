@@ -3,8 +3,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-const getDungeonAchievement = require("./controllers/getDungeonAchievement");
-const getRaidAchievement = require("./controllers/getRaidAchievement");
+const dungeonsAchievements = require("./controllers/dungeonsAchievements");
+const raidsAchievements = require("./controllers/raidsAchievements");
 
 const app = express();
 
@@ -71,8 +71,8 @@ const formValidator = (req, res, next) => {
 
 app.use('/dungeonsAchievements', formValidator);
 
-app.post('/dungeonsAchievements', getDungeonAchievement);
-app.get('/raidsAchievements', getRaidAchievement);
+app.post('/dungeonsAchievements', dungeonsAchievements);
+app.get('/raidsAchievements', raidsAchievements);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

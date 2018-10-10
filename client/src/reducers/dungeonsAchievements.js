@@ -1,7 +1,7 @@
 import {
   GET_DUNGEONS_ACHIEVEMENTS,
   GET_DUNGEONS_ACHIEVEMENTS_FROM_API
-} from "../actions/dungeonsAchievementsTool/actionTypes";
+} from "../actions/dungeonsAchievements/actionTypes";
 
 export default (state = {}, action) => {
   switch (action.type) {

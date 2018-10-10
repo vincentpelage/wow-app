@@ -4,13 +4,13 @@ import {
 } from "./actionTypes";
 
 export const dungeonAchievementsAction = (
-  pseudo,
-  selectedOption
+  characterName,
+  characterKingdom
 ) => dispatch => {
   dispatch({
     type: GET_DUNGEONS_ACHIEVEMENTS,
     payload: "result_of_dungeon_achievements",
-    inputData: { pseudo, selectedOption }
+    inputData: { characterName, characterKingdom }
   });
 };
 

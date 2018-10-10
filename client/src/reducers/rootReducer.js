@@ -1,8 +1,6 @@
 import { combineReducers } from "redux";
-import simpleReducer from "./simpleReducer";
-import dungeonAchievementsReducer from "./dungeonAchievementsReducer";
+import dungeonAchievementsReducer from "./dungeonsAchievements";
 
 export default combineReducers({
-  simpleReducer,
   dungeonAchievementsReducer
 });
