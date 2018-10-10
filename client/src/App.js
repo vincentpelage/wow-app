@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Home from "./views/Home";
-import RaidAchievements from "./views/RaidAchievements";
-import DungeonAchievements from "./containers/DungeonAchievements";
+import RaidsAchievements from "./views/RaidsAchievements";
+import DungeonsAchievements from "./containers/DungeonsAchievements";
 import { themeHorde, themeAlliance } from "./styles/theme/globalStyle";
 import { ThemeProvider } from "styled-components";
 
@@ -16,9 +16,17 @@ class App extends Component {
     theme: themeHorde
   };
 
+    componentWillMount(){
+      if(localStorage.getItem("faction")){
+        const themeLocalStorage = JSON.parse(localStorage.getItem("faction"));
+        this.setState({theme: themeLocalStorage});
+      }
+    }
+
   selectTheme = faction => {
     let theme;
     faction === "horde" ? (theme = themeHorde) : (theme = themeAlliance);
+    localStorage.setItem("faction", JSON.stringify(theme))
     this.setState({ theme });
   };
 
@@ -40,12 +48,12 @@ class App extends Component {
           <Route
             path="/hauts-faits-donjon"
             render={() => (
-              <DungeonAchievements toggleTheme={this.toggleTheme} />
+              <DungeonsAchievements toggleTheme={this.toggleTheme} />
             )}
           />
           <Route
             path="/hauts-faits-raid"
-            render={() => <RaidAchievements toggleTheme={this.toggleTheme} />}
+            render={() => <RaidsAchievements toggleTheme={this.toggleTheme} />}
           />
         </div>
       </ThemeProvider>

@@ -40,7 +40,7 @@ const options = [
   { value: "vanilla", label: "Vanilla" }
 ];
 
-class RaidAchievements extends React.Component {
+class RaidsAchievements extends React.Component {
   state = {
     pseudo: "",
     selectedOption: null,
@@ -101,4 +101,4 @@ class RaidAchievements extends React.Component {
   }
 }
 
-export default RaidAchievements;
+export default RaidsAchievements;

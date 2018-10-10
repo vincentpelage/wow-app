@@ -165,13 +165,18 @@ const pveAchievementsDungeonsList = [
   }
 ];
 
-module.exports = function getDungeonAchievement(req, res) {
-  console.log("req.body.form", req.body.form);
+module.exports = function dungeonsAchievements(req, res) {
+  console.log(req.body.form);
   axios
     .get(
-      `https://eu.api.battle.net/wow/character/${req.body.form.kingdom}/${
-        req.body.form.nickname
-      }/?fields=achievements&locale=fr_FR&apikey=${process.env.WOW_API_KEY}`
+      "https://" +
+        req.body.form.characterRegion +
+        ".api.battle.net/wow/character/" +
+        req.body.form.characterKingdom +
+        "/" +
+        req.body.form.characterName +
+        "?fields=achievements&locale=fr_FR&apikey=" +
+        process.env.WOW_API_KEY
     )
     .then(function(response) {
       // handle success

@@ -2,9 +2,9 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 
-import * as actions from "../actions/dungeonsAchievementsTool/dungeonAchievementsAction";
+import * as actions from "../actions/dungeonsAchievements/dungeonsAchievements";
 
-import DungeonAchievements from "../views/DungeonAchievements";
+import DungeonAchievements from "../views/DungeonsAchievements";
 
 
 const mapStateToProps = state => ({
