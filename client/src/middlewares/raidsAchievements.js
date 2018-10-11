@@ -1,13 +1,14 @@
 import axios from "axios";
 
-import { GET_DUNGEONS_ACHIEVEMENTS } from "../actions/dungeonsAchievements/actionTypes";
-import { getDungeonAchievementsFromAPi } from "../actions/dungeonsAchievements/dungeonsAchievements";
+import { GET_RAIDS_ACHIEVEMENTS } from "../actions/raidsAchievements/actionTypes";
+import { getRaidsAchievementsFromAPi } from "../actions/raidsAchievements/raidsAchievements";
 
-const dungeonAchievementsMiddleware = store => next => action => {
+const raidAchievementsMiddleware = store => next => action => {
   switch (action.type) {
-    case GET_DUNGEONS_ACHIEVEMENTS: {
+    case GET_RAIDS_ACHIEVEMENTS: {
+      console.log("inside middleware");
       axios
-        .post("/dungeonsAchievements", {
+        .post("/raidsAchievements", {
           form: {
             characterName: action.payload.characterName,
             characterKingdom: action.payload.characterKingdom,
@@ -16,7 +17,7 @@ const dungeonAchievementsMiddleware = store => next => action => {
         })
         .then(({ data }) => {
           console.log("data", data);
-          store.dispatch(getDungeonAchievementsFromAPi(data));
+          store.dispatch(getRaidsAchievementsFromAPi(data));
         })
         .catch(() => {
           console.log("Request did not work");
@@ -33,4 +34,4 @@ const dungeonAchievementsMiddleware = store => next => action => {
 /*
  * Export default
  */
-export default dungeonAchievementsMiddleware;
+export default raidAchievementsMiddleware;

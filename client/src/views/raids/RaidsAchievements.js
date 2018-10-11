@@ -3,9 +3,12 @@ import styled from "styled-components";
 import Banner from "../../components/Banner";
 import Nav from "../../components/Nav";
 import Input from "../../components/input/index";
+import { optionsKingdom } from "../../datas/kingdom";
+import { optionsRegions } from "../../datas/regions";
 import { BannerButton } from "../../components/button";
 import Select from "../../components/select";
 import ResultContainer from "../../components/ResultContainer";
+import ResultRaid from "./ResultRaid";
 import { global } from "../../styles/theme/globalStyle";
 
 const WrapperForm = styled.div`
@@ -26,61 +29,113 @@ const WrapperForm = styled.div`
   }
 `;
 
-const WrapperSelect = styled.div`
-  flex: 1 0 50%;
-  margin: 16px 0;
+const WrapperInput = styled.div`
+  margin: 0 0 16px 0;
   @media (min-width: ${global.minTablet}) {
-    margin: 0 16px;
+    margin: 0 16px 0 0;
   }
 `;
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" }
-];
+const WrapperSelect = styled.div`
+  flex: 1 0 40%;
+  margin: 0 0 16px 0;
+  @media (min-width: ${global.minTablet}) {
+    margin: 0 16px 0 0;
+  }
+`;
 
 class RaidsAchievements extends React.Component {
   state = {
-    pseudo: "",
-    selectedOption: null,
-    isResultActive: false
+    characterName: "",
+    characterKingdom: "",
+    characterRegion: "",
+    emptyInputAlert: ""
   };
 
   handleInputChange = event => {
-    this.setState({ pseudo: event.target.value });
+    const characterName = event.target.value.trim();
+    this.setState({ characterName });
   };
 
-  handleSelectChange = selectedOption => {
-    this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+  handleSelectChange = characterKingdom => {
+    this.setState({ characterKingdom: characterKingdom.value });
   };
 
-  handleClick = () => {
-    this.setState({ isResultActive: true });
+  handleSelectRegionChange = characterRegion => {
+    this.setState({ characterRegion: characterRegion.value });
+  };
+
+  handleSubmit = () => {
+    const { characterName, characterKingdom, characterRegion } = this.state;
+
+    if (
+      characterName.length > 0 &&
+      characterKingdom.length > 0 &&
+      characterRegion.length > 0
+    ) {
+      this.props.actions.getRaidsAchievements(
+        characterName,
+        characterKingdom,
+        characterRegion
+      );
+      this.setState({ emptyInputAlert: "" });
+    } else {
+      this.handleEmptyInput();
+    }
+  };
+
+  handleEmptyInput = () => {
+    const { characterName, characterKingdom, characterRegion } = this.state;
+    if (
+      characterName.length === 0 ||
+      characterKingdom.length === 0 ||
+      characterRegion.length === 0
+    ) {
+      this.setState({
+        emptyInputAlert: "Please fill all the fields :)"
+      });
+    } else {
+      this.setState({
+        emptyInputAlert: ""
+      });
+    }
   };
 
   render() {
-    const { toggleTheme } = this.props;
-    const { selectedOption, pseudo, isResultActive } = this.state;
+    const { toggleTheme, raidsAchievements } = this.props;
+    const { characterName } = this.state;
 
     return (
       <React.Fragment>
         <Nav toggleTheme={toggleTheme} />
-        <Banner title="hauts-faits en raids" isResultActive={isResultActive}>
+        <Banner
+          title="Raid Achievements"
+          isResultActive={raidsAchievements.data ? true : false}
+        >
           <WrapperForm>
-            <Input
-              placeholder="Pseudo"
-              type="text"
-              onChange={this.handleInputChange}
-              value={pseudo}
-            />
+            <WrapperInput>
+              <Input
+                placeholder="Character"
+                type="text"
+                onChange={this.handleInputChange}
+                value={characterName}
+                fullWidth
+              />
+            </WrapperInput>
             <WrapperSelect>
               <Select
-                value={selectedOption}
                 onChange={this.handleSelectChange}
-                options={options}
-                placeholder="Royaume"
+                options={optionsKingdom}
+                placeholder="Kingdom"
+                className="react-select-container"
+                classNamePrefix="react-select"
+              />
+            </WrapperSelect>
+            <WrapperSelect>
+              <Select
+                onChange={this.handleSelectRegionChange}
+                options={optionsRegions}
+                placeholder="Region"
                 className="react-select-container"
                 classNamePrefix="react-select"
               />
@@ -89,13 +144,20 @@ class RaidsAchievements extends React.Component {
               fullWidth
               size="large"
               height="auto"
-              onClick={this.handleClick}
+              onClick={this.handleSubmit}
             >
-              Chercher
+              Search
             </BannerButton>
           </WrapperForm>
         </Banner>
-        <ResultContainer isResultActive={isResultActive} />
+        {raidsAchievements.data &&
+          Object.keys(raidsAchievements.data).length > 0 && (
+            <ResultContainer
+              isResultActive={raidsAchievements.data ? true : false}
+            >
+              <ResultRaid data={raidsAchievements.data} />
+            </ResultContainer>
+          )}
       </React.Fragment>
     );
   }
