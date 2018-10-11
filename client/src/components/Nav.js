@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { global } from "../styles/theme/globalStyle";
 import {
@@ -82,7 +82,7 @@ const WrapperNav = styled.div`
   }
 `;
 
-const MenuLink = styled(Link)`
+const MenuLink = styled(NavLink)`
   padding: 0;
   color: #fff;
   background: ${props => props.theme.medium};
@@ -107,9 +107,16 @@ const MenuLink = styled(Link)`
     transition: all ease 0.5s;
   }
   &:hover {
-    background: ${props => props.theme.light};
+    background: ${props => props.theme.dark};
     svg {
       transform: rotate(360deg);
+    }
+  }
+  &.active {
+    background: ${props => props.theme.dark};
+    cursor: default;
+    svg {
+      transform: none;
     }
   }
   @media (min-width: ${global.minTablet}) {
@@ -203,19 +210,19 @@ class Nav extends Component {
           <BurgerBar isBurgerActive={isBurgerActive} />
         </WrapperBurger>
         <WrapperNav isBurgerActive={isBurgerActive}>
-          <HomeLink to="/">
+          <HomeLink exact to="/" activeClassName="active">
             <IconHome />
             <Name>Home</Name>
           </HomeLink>
-          <MenuLink to="/hauts-faits-donjon">
+          <MenuLink to="/hauts-faits-donjon" activeClassName="active">
             <IconDungeon />
             <Name>Dungeon Achievements</Name>
           </MenuLink>
-          <MenuLink to="/hauts-faits-raid">
+          <MenuLink to="/hauts-faits-raid" activeClassName="active">
             <IconRaid />
             <Name>Raid Achievements</Name>
           </MenuLink>
-          <MenuLink to="/hauts-faits-pvp">
+          <MenuLink to="/hauts-faits-pvp" activeClassName="active">
             <IconPvp />
             <Name>PVP Achievements</Name>
           </MenuLink>
