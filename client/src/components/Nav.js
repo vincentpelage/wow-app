@@ -140,6 +140,7 @@ const HomeLink = MenuLink.extend`
 const Name = styled.span`
   padding-top: 5px;
   opacity: 0.8;
+  font-size: 12px;
 `;
 
 const ButtonFaction = styled.button`

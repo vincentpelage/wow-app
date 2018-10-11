@@ -49,18 +49,8 @@ class DungeonsAchievements extends React.Component {
     characterName: "",
     characterKingdom: "",
     characterRegion: "",
-    emptyInputAlert: "",
-    isResultActive: false
+    emptyInputAlert: ""
   };
-
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.dungeonAchievementsReducer.data !==
-      prevProps.dungeonAchievementsReducer.data
-    ) {
-      this.setState({ isResultActive: true });
-    }
-  }
 
   handleInputChange = event => {
     const characterName = event.target.value.trim();
@@ -83,7 +73,7 @@ class DungeonsAchievements extends React.Component {
       characterKingdom.length > 0 &&
       characterRegion.length > 0
     ) {
-      this.props.actions.dungeonAchievementsAction(
+      this.props.actions.getDungeonAchievements(
         characterName,
         characterKingdom,
         characterRegion
@@ -112,14 +102,16 @@ class DungeonsAchievements extends React.Component {
   };
 
   render() {
-    const { toggleTheme } = this.props;
-    const { characterName, isResultActive } = this.state;
-    const data = this.props.dungeonAchievementsReducer.data;
+    const { toggleTheme, dungeonsAchievements } = this.props;
+    const { characterName } = this.state;
 
     return (
       <React.Fragment>
         <Nav toggleTheme={toggleTheme} />
-        <Banner title="Dungeon Achievements" isResultActive={isResultActive}>
+        <Banner
+          title="Dungeon Achievements"
+          isResultActive={dungeonsAchievements.data ? true : false}
+        >
           <WrapperForm>
             <WrapperInput>
               <Input
@@ -158,9 +150,13 @@ class DungeonsAchievements extends React.Component {
             </BannerButton>
           </WrapperForm>
         </Banner>
-        <ResultContainer isResultActive={isResultActive}>
-          {data &&
-            Object.keys(data).length > 0 && <ResultDungeon data={data} />}
+        <ResultContainer
+          isResultActive={dungeonsAchievements.data ? true : false}
+        >
+          {dungeonsAchievements.data &&
+            Object.keys(dungeonsAchievements.data).length > 0 && (
+              <ResultDungeon data={dungeonsAchievements.data} />
+            )}
         </ResultContainer>
       </React.Fragment>
     );

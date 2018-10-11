@@ -38,7 +38,7 @@ injectGlobal`
     margin: 0;
     font-family: sans-serif;
   }
-  p, a, input {
+  p, a, input, span {
     font-family: Roboto, sans-serif;
     font-weight: 300;
     margin: 0;
