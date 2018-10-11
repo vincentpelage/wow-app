@@ -105,7 +105,6 @@ export const getButtonStateBannerStyles = props => {
     color: #fff;
     box-shadow: 0 4px ${props.theme.dark};
     transition: none;
-    display: inline-block;
     letter-spacing: 1px;
     position: relative;
 
