@@ -10,6 +10,7 @@ import Select from "../../components/select";
 import ResultContainer from "../../components/ResultContainer";
 import ResultRaid from "./ResultRaid";
 import { global } from "../../styles/theme/globalStyle";
+import Spinner from "../../components/spinner";
 
 const WrapperForm = styled.div`
   z-index: 3;
@@ -42,6 +43,10 @@ const WrapperSelect = styled.div`
   @media (min-width: ${global.minTablet}) {
     margin: 0 16px 0 0;
   }
+`;
+
+const Search = styled.span`
+  padding-left: 10px;
 `;
 
 class RaidsAchievements extends React.Component {
@@ -146,7 +151,8 @@ class RaidsAchievements extends React.Component {
               height="auto"
               onClick={this.handleSubmit}
             >
-              Search
+              {raidsAchievements.isLoading && <Spinner />}
+              <Search>Search</Search>
             </BannerButton>
           </WrapperForm>
         </Banner>
