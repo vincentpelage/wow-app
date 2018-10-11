@@ -122,7 +122,7 @@ const Home = ({ selectTheme }) => {
         onClick={() => selectTheme(faction.horde)}
       >
         <HordeBanner>
-          <Title>Pour la Horde</Title>
+          <Title>For the Horde</Title>
           <Icon src={HordeIcon} />
         </HordeBanner>
       </Horde>
@@ -132,7 +132,7 @@ const Home = ({ selectTheme }) => {
       >
         <AllianceBanner>
           <Icon src={AllianceIcon} />
-          <Title>Pour l'Alliance</Title>
+          <Title>For the Alliance</Title>
         </AllianceBanner>
       </Alliance>
     </WrapperHome>

@@ -4,20 +4,19 @@ import { withRouter } from "react-router-dom";
 
 import * as actions from "../actions/dungeonsAchievements/dungeonsAchievements";
 
-import DungeonAchievements from "../views/DungeonsAchievements";
-
+import DungeonAchievements from "../views/dungeons/DungeonsAchievements";
 
 const mapStateToProps = state => ({
-    ...state
+  ...state
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(actions, dispatch)
+  actions: bindActionCreators(actions, dispatch)
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(DungeonAchievements)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(DungeonAchievements)
 );

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const WrapperBanner = styled.div`
   background-image: url(${props => props.theme.image});
   width: 100%;
-  height: ${props => (props.isResultActive ? "500px" : "100vh")};
+  height: ${props => (props.isResultActive ? "600px" : "100vh")};
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Home from "./views/Home";
-import RaidsAchievements from "./views/RaidsAchievements";
+import RaidsAchievements from "./views/raids/RaidsAchievements";
 import DungeonsAchievements from "./containers/DungeonsAchievements";
 import { themeHorde, themeAlliance } from "./styles/theme/globalStyle";
 import { ThemeProvider } from "styled-components";
@@ -16,17 +16,17 @@ class App extends Component {
     theme: themeHorde
   };
 
-    componentWillMount(){
-      if(localStorage.getItem("faction")){
-        const themeLocalStorage = JSON.parse(localStorage.getItem("faction"));
-        this.setState({theme: themeLocalStorage});
-      }
+  componentWillMount() {
+    if (localStorage.getItem("faction")) {
+      const themeLocalStorage = JSON.parse(localStorage.getItem("faction"));
+      this.setState({ theme: themeLocalStorage });
     }
+  }
 
   selectTheme = faction => {
     let theme;
     faction === "horde" ? (theme = themeHorde) : (theme = themeAlliance);
-    localStorage.setItem("faction", JSON.stringify(theme))
+    localStorage.setItem("faction", JSON.stringify(theme));
     this.setState({ theme });
   };
 

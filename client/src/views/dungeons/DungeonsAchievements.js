@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import Banner from "../components/Banner";
-import Nav from "../components/Nav";
-import Input from "../components/input/index";
-import { optionsKingdom } from "../datas/kingdom";
-import { optionsRegions } from "../datas/regions";
-import { BannerButton } from "../components/button";
-import Select from "../components/select";
-import Result from "../components/Result";
-import { global } from "../styles/theme/globalStyle";
+import Banner from "../../components/Banner";
+import Nav from "../../components/Nav";
+import Input from "../../components/input/index";
+import { optionsKingdom } from "../../datas/kingdom";
+import { optionsRegions } from "../../datas/regions";
+import { BannerButton } from "../../components/button";
+import Select from "../../components/select";
+import ResultContainer from "../../components/ResultContainer";
+import ResultDungeon from "./ResultDungeon";
+import { global } from "../../styles/theme/globalStyle";
 
 const WrapperForm = styled.div`
   z-index: 3;
@@ -28,11 +29,18 @@ const WrapperForm = styled.div`
   }
 `;
 
-const WrapperSelect = styled.div`
-  flex: 1 0 50%;
-  margin: 16px 0;
+const WrapperInput = styled.div`
+  margin: 0 0 16px 0;
   @media (min-width: ${global.minTablet}) {
-    margin: 0 16px;
+    margin: 0 16px 0 0;
+  }
+`;
+
+const WrapperSelect = styled.div`
+  flex: 1 0 40%;
+  margin: 0 0 16px 0;
+  @media (min-width: ${global.minTablet}) {
+    margin: 0 16px 0 0;
   }
 `;
 
@@ -40,7 +48,7 @@ class DungeonsAchievements extends React.Component {
   state = {
     characterName: "",
     characterKingdom: "",
-      characterRegion: "",
+    characterRegion: "",
     emptyInputAlert: "",
     isResultActive: false
   };
@@ -63,15 +71,23 @@ class DungeonsAchievements extends React.Component {
     this.setState({ characterKingdom: characterKingdom.value });
   };
 
-    handleSelectRegionChange = characterRegion => {
+  handleSelectRegionChange = characterRegion => {
     this.setState({ characterRegion: characterRegion.value });
   };
 
   handleSubmit = () => {
     const { characterName, characterKingdom, characterRegion } = this.state;
 
-    if (characterName.length > 0 && characterKingdom.length > 0 && characterRegion.length > 0) {
-      this.props.actions.dungeonAchievementsAction(characterName, characterKingdom, characterRegion);
+    if (
+      characterName.length > 0 &&
+      characterKingdom.length > 0 &&
+      characterRegion.length > 0
+    ) {
+      this.props.actions.dungeonAchievementsAction(
+        characterName,
+        characterKingdom,
+        characterRegion
+      );
       this.setState({ emptyInputAlert: "" });
     } else {
       this.handleEmptyInput();
@@ -80,9 +96,13 @@ class DungeonsAchievements extends React.Component {
 
   handleEmptyInput = () => {
     const { characterName, characterKingdom, characterRegion } = this.state;
-    if (characterName.length === 0 || characterKingdom.length === 0 || characterRegion.length === 0) {
+    if (
+      characterName.length === 0 ||
+      characterKingdom.length === 0 ||
+      characterRegion.length === 0
+    ) {
       this.setState({
-        emptyInputAlert: "Veuillez renseigner tous les champs :-)"
+        emptyInputAlert: "Please fill all the fields :)"
       });
     } else {
       this.setState({
@@ -94,20 +114,22 @@ class DungeonsAchievements extends React.Component {
   render() {
     const { toggleTheme } = this.props;
     const { characterName, isResultActive } = this.state;
-
-    console.log(this.state.emptyInputAlert);
+    const data = this.props.dungeonAchievementsReducer.data;
 
     return (
       <React.Fragment>
         <Nav toggleTheme={toggleTheme} />
-        <Banner title="hauts-faits en donjons" isResultActive={isResultActive}>
+        <Banner title="Dungeon Achievements" isResultActive={isResultActive}>
           <WrapperForm>
-            <Input
-              placeholder="Character"
-              type="text"
-              onChange={this.handleInputChange}
-              value={characterName}
-            />
+            <WrapperInput>
+              <Input
+                placeholder="Character"
+                type="text"
+                onChange={this.handleInputChange}
+                value={characterName}
+                fullWidth
+              />
+            </WrapperInput>
             <WrapperSelect>
               <Select
                 onChange={this.handleSelectChange}
@@ -118,35 +140,28 @@ class DungeonsAchievements extends React.Component {
               />
             </WrapperSelect>
             <WrapperSelect>
-            <Select
-              onChange={this.handleSelectRegionChange}
-              options={optionsRegions}
-              placeholder="Region"
-              className="react-select-container"
-              classNamePrefix="react-select"
-            />
-          </WrapperSelect>
+              <Select
+                onChange={this.handleSelectRegionChange}
+                options={optionsRegions}
+                placeholder="Region"
+                className="react-select-container"
+                classNamePrefix="react-select"
+              />
+            </WrapperSelect>
             <BannerButton
               fullWidth
               size="large"
               height="auto"
               onClick={this.handleSubmit}
             >
-              Chercher
+              Search
             </BannerButton>
           </WrapperForm>
         </Banner>
-        <Result isResultActive={isResultActive}>
-          {this.props.dungeonAchievementsReducer.data &&
-            Object.keys(this.props.dungeonAchievementsReducer.data).length >
-              0 && (
-              <ul>
-                {this.props.dungeonAchievementsReducer.data.map((obj, id) => (
-                  <li key={id}>{obj.name}</li>
-                ))}
-              </ul>
-            )}
-        </Result>
+        <ResultContainer isResultActive={isResultActive}>
+          {data &&
+            Object.keys(data).length > 0 && <ResultDungeon data={data} />}
+        </ResultContainer>
       </React.Fragment>
     );
   }

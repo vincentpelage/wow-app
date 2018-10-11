@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import Banner from "../components/Banner";
-import Nav from "../components/Nav";
-import Input from "../components/input/index";
-import { BannerButton } from "../components/button";
-import Select from "../components/select";
-import Result from "../components/Result";
-import { global } from "../styles/theme/globalStyle";
+import Banner from "../../components/Banner";
+import Nav from "../../components/Nav";
+import Input from "../../components/input/index";
+import { BannerButton } from "../../components/button";
+import Select from "../../components/select";
+import ResultContainer from "../../components/ResultContainer";
+import { global } from "../../styles/theme/globalStyle";
 
 const WrapperForm = styled.div`
   z-index: 3;
@@ -95,7 +95,7 @@ class RaidsAchievements extends React.Component {
             </BannerButton>
           </WrapperForm>
         </Banner>
-        <Result isResultActive={isResultActive} />
+        <ResultContainer isResultActive={isResultActive} />
       </React.Fragment>
     );
   }

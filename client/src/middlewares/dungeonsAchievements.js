@@ -11,10 +11,11 @@ const dungeonAchievementsMiddleware = store => next => action => {
           form: {
             characterName: action.inputData.characterName,
             characterKingdom: action.inputData.characterKingdom,
-              characterRegion: action.inputData.characterRegion,
+            characterRegion: action.inputData.characterRegion
           }
         })
         .then(({ data }) => {
+          console.log("data", data);
           store.dispatch(dungeonAchievementsActionFromAPi(data));
         })
         .catch(() => {
