@@ -11,6 +11,7 @@ import ResultContainer from "../../components/ResultContainer";
 import ResultRaid from "./ResultRaid";
 import { global } from "../../styles/theme/globalStyle";
 import Spinner from "../../components/spinner";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const WrapperForm = styled.div`
   z-index: 3;
@@ -54,8 +55,23 @@ class RaidsAchievements extends React.Component {
     characterName: "",
     characterKingdom: "",
     characterRegion: "",
-    emptyInputAlert: ""
+    errorMessage: "",
+    isErrorDisplay: false
   };
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.raidsAchievements !== prevProps.raidsAchievements &&
+      this.props.raidsAchievements.data !== prevProps.raidsAchievements.data &&
+      this.props.raidsAchievements.data.error
+    ) {
+      this.setState({
+        errorMessage:
+          "Sorry, we can't found your datas. Are you sure you've filled the form correctly ?",
+        isErrorDisplay: true
+      });
+    }
+  }
 
   handleInputChange = event => {
     const characterName = event.target.value.trim();
@@ -83,7 +99,7 @@ class RaidsAchievements extends React.Component {
         characterKingdom,
         characterRegion
       );
-      this.setState({ emptyInputAlert: "" });
+      this.setState({ errorMessage: "", isErrorDisplay: false });
     } else {
       this.handleEmptyInput();
     }
@@ -97,25 +113,45 @@ class RaidsAchievements extends React.Component {
       characterRegion.length === 0
     ) {
       this.setState({
-        emptyInputAlert: "Please fill all the fields :)"
+        errorMessage: "Please fill all the fields :)",
+        isErrorDisplay: true
       });
     } else {
       this.setState({
-        emptyInputAlert: ""
+        errorMessage: "",
+        isErrorDisplay: false
       });
     }
   };
 
+  toggleErrorDisplay = () => {
+    this.setState({ isErrorDisplay: !this.state.isErrorDisplay });
+  };
+
   render() {
     const { toggleTheme, raidsAchievements } = this.props;
-    const { characterName } = this.state;
+    const { characterName, errorMessage, isErrorDisplay } = this.state;
 
     return (
       <React.Fragment>
+        {isErrorDisplay && (
+          <ErrorMessage
+            isErrorDisplay={isErrorDisplay}
+            toggleErrorDisplay={this.toggleErrorDisplay}
+          >
+            {errorMessage}
+          </ErrorMessage>
+        )}
         <Nav toggleTheme={toggleTheme} />
         <Banner
           title="Raid Achievements"
-          isResultActive={raidsAchievements.data ? true : false}
+          isResultActive={
+            raidsAchievements.data &&
+            !isErrorDisplay &&
+            !raidsAchievements.data.error
+              ? true
+              : false
+          }
         >
           <WrapperForm>
             <WrapperInput>
@@ -156,14 +192,22 @@ class RaidsAchievements extends React.Component {
             </BannerButton>
           </WrapperForm>
         </Banner>
-        {raidsAchievements.data &&
-          Object.keys(raidsAchievements.data).length > 0 && (
-            <ResultContainer
-              isResultActive={raidsAchievements.data ? true : false}
-            >
+        <ResultContainer
+          isResultActive={
+            raidsAchievements.data &&
+            !isErrorDisplay &&
+            !raidsAchievements.data.error
+              ? true
+              : false
+          }
+        >
+          {!isErrorDisplay &&
+            raidsAchievements.data &&
+            !raidsAchievements.data.error &&
+            Object.keys(raidsAchievements.data).length > 0 && (
               <ResultRaid data={raidsAchievements.data} />
-            </ResultContainer>
-          )}
+            )}
+        </ResultContainer>
       </React.Fragment>
     );
   }

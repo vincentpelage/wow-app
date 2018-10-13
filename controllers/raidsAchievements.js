@@ -102,7 +102,8 @@ module.exports = function raidsAchievements(req, res) {
     })
     .catch(function(error) {
       // handle error
-      console.log(error.data);
+      console.log("error.data", error.data);
+      res.send({ error: "Data not found" });
     })
     .then(function() {
       console.log("Axios request ended");

@@ -5,7 +5,7 @@ import RaidsAchievements from "./containers/RaidsAchievements";
 import DungeonsAchievements from "./containers/DungeonsAchievements";
 import { themeHorde, themeAlliance } from "./styles/theme/globalStyle";
 import { ThemeProvider } from "styled-components";
-import setLocalStorageTheme from './utils'
+import setLocalStorageTheme from "./utils";
 
 export const faction = {
   horde: "horde",
@@ -14,7 +14,7 @@ export const faction = {
 
 class App extends Component {
   state = {
-      theme: {},
+    theme: {}
   };
 
   componentDidMount() {
@@ -22,7 +22,7 @@ class App extends Component {
       const themeLocalStorage = JSON.parse(localStorage.getItem("faction"));
       this.setState({ theme: themeLocalStorage });
     } else {
-        this.setState({ theme: themeHorde });
+      this.setState({ theme: themeHorde });
     }
   }
 
@@ -40,7 +40,7 @@ class App extends Component {
     this.setState({ theme });
   };
   render() {
-    if(Object.keys(this.state.theme).length === 0){
+    if (Object.keys(this.state.theme).length === 0) {
       return null;
     }
     return (
