@@ -195,7 +195,7 @@ module.exports = function dungeonsAchievements(req, res) {
     .catch(function(error) {
       // handle error
       console.log("error.data", error.data);
-      res.send({});
+      res.send({ error: "Data not found" });
     })
     .then(function() {
       console.log("Axios request ended");
