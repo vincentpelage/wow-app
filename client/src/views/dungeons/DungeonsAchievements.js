@@ -10,6 +10,8 @@ import Select from "../../components/select";
 import ResultContainer from "../../components/ResultContainer";
 import ResultDungeon from "./ResultDungeon";
 import { global } from "../../styles/theme/globalStyle";
+import Spinner from "../../components/spinner";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const WrapperForm = styled.div`
   z-index: 3;
@@ -44,21 +46,31 @@ const WrapperSelect = styled.div`
   }
 `;
 
+const Search = styled.span`
+  padding-left: 10px;
+`;
+
 class DungeonsAchievements extends React.Component {
   state = {
     characterName: "",
     characterKingdom: "",
     characterRegion: "",
-    emptyInputAlert: "",
-    isResultActive: false
+    errorMessage: "",
+    isErrorDisplay: false
   };
 
   componentDidUpdate(prevProps) {
     if (
-      this.props.dungeonAchievementsReducer.data !==
-      prevProps.dungeonAchievementsReducer.data
+      this.props.dungeonsAchievements !== prevProps.dungeonsAchievements &&
+      this.props.dungeonsAchievements.data !==
+        prevProps.dungeonsAchievements.data &&
+      this.props.dungeonsAchievements.data.error
     ) {
-      this.setState({ isResultActive: true });
+      this.setState({
+        errorMessage:
+          "Sorry, we can't found your datas. Are you sure you've filled the form correctly ?",
+        isErrorDisplay: true
+      });
     }
   }
 
@@ -83,12 +95,12 @@ class DungeonsAchievements extends React.Component {
       characterKingdom.length > 0 &&
       characterRegion.length > 0
     ) {
-      this.props.actions.dungeonAchievementsAction(
+      this.props.actions.getDungeonAchievements(
         characterName,
         characterKingdom,
         characterRegion
       );
-      this.setState({ emptyInputAlert: "" });
+      this.setState({ errorMessage: "", isErrorDisplay: false });
     } else {
       this.handleEmptyInput();
     }
@@ -102,24 +114,46 @@ class DungeonsAchievements extends React.Component {
       characterRegion.length === 0
     ) {
       this.setState({
-        emptyInputAlert: "Please fill all the fields :)"
+        errorMessage: "Please fill all the fields :)",
+        isErrorDisplay: true
       });
     } else {
       this.setState({
-        emptyInputAlert: ""
+        errorMessage: "",
+        isErrorDisplay: false
       });
     }
   };
 
+  toggleErrorDisplay = () => {
+    this.setState({ isErrorDisplay: !this.state.isErrorDisplay });
+  };
+
   render() {
-    const { toggleTheme } = this.props;
-    const { characterName, isResultActive } = this.state;
-    const data = this.props.dungeonAchievementsReducer.data;
+    const { toggleTheme, dungeonsAchievements } = this.props;
+    const { characterName, errorMessage, isErrorDisplay } = this.state;
 
     return (
       <React.Fragment>
+        {isErrorDisplay && (
+          <ErrorMessage
+            isErrorDisplay={isErrorDisplay}
+            toggleErrorDisplay={this.toggleErrorDisplay}
+          >
+            {errorMessage}
+          </ErrorMessage>
+        )}
         <Nav toggleTheme={toggleTheme} />
-        <Banner title="Dungeon Achievements" isResultActive={isResultActive}>
+        <Banner
+          title="Dungeon Achievements"
+          isResultActive={
+            dungeonsAchievements.data &&
+            !isErrorDisplay &&
+            !dungeonsAchievements.data.error
+              ? true
+              : false
+          }
+        >
           <WrapperForm>
             <WrapperInput>
               <Input
@@ -154,14 +188,28 @@ class DungeonsAchievements extends React.Component {
               height="auto"
               onClick={this.handleSubmit}
             >
-              Search
+              {dungeonsAchievements.isLoading && <Spinner />}
+              <Search>Search</Search>
             </BannerButton>
           </WrapperForm>
         </Banner>
-        <ResultContainer isResultActive={isResultActive}>
-          {data &&
-            Object.keys(data).length > 0 && <ResultDungeon data={data} />}
-        </ResultContainer>
+
+        {!isErrorDisplay &&
+          dungeonsAchievements.data &&
+          !dungeonsAchievements.data.error &&
+          Object.keys(dungeonsAchievements.data).length > 0 && (
+            <ResultContainer
+              isResultActive={
+                dungeonsAchievements.data &&
+                !isErrorDisplay &&
+                !dungeonsAchievements.data.error
+                  ? true
+                  : false
+              }
+            >
+              <ResultDungeon data={dungeonsAchievements.data} />
+            </ResultContainer>
+          )}
       </React.Fragment>
     );
   }

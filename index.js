@@ -2,6 +2,7 @@ const express = require("express");
 const schedule = require("node-schedule");
 const mongoose = require("mongoose");
 const axios = require("axios");
+
 const path = require("path");
 const bodyParser = require("body-parser");
 require("dotenv").config();
@@ -145,6 +146,7 @@ const getLeaderBoards = ladder => {
 // });
 
 app.use("/dungeonsAchievements", formValidator);
+app.use("/raidsAchievements", formValidator);
 
 app.post("/dungeonsAchievements", dungeonsAchievements);
 app.post("/raidsAchievements", raidsAchievements);

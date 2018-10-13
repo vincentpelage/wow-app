@@ -1,7 +1,7 @@
 import {
-  GET_DUNGEONS_ACHIEVEMENTS_FROM_API,
+  GET_RAIDS_ACHIEVEMENTS_FROM_API,
   SET_LOADER
-} from "../actions/dungeonsAchievements/actionTypes";
+} from "../actions/raidsAchievements/actionTypes";
 
 const initialState = {
   isLoading: false
@@ -9,7 +9,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_DUNGEONS_ACHIEVEMENTS_FROM_API:
+    case GET_RAIDS_ACHIEVEMENTS_FROM_API:
       return {
         ...state,
         data: action.payload,

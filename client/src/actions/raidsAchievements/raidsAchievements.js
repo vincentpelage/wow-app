@@ -1,23 +1,23 @@
 import {
-  GET_DUNGEONS_ACHIEVEMENTS,
-  GET_DUNGEONS_ACHIEVEMENTS_FROM_API,
+  GET_RAIDS_ACHIEVEMENTS,
+  GET_RAIDS_ACHIEVEMENTS_FROM_API,
   SET_LOADER
 } from "./actionTypes";
 
-export const getDungeonAchievements = (
+export const getRaidsAchievements = (
   characterName,
   characterKingdom,
   characterRegion
 ) => dispatch => {
   dispatch({
-    type: GET_DUNGEONS_ACHIEVEMENTS,
+    type: GET_RAIDS_ACHIEVEMENTS,
     payload: { characterName, characterKingdom, characterRegion }
   });
 };
 
-export const getDungeonAchievementsFromAPi = data => dispatch => {
+export const getRaidsAchievementsFromAPi = data => dispatch => {
   dispatch({
-    type: GET_DUNGEONS_ACHIEVEMENTS_FROM_API,
+    type: GET_RAIDS_ACHIEVEMENTS_FROM_API,
     payload: data
   });
 };
