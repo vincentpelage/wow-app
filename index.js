@@ -79,14 +79,19 @@ const formValidator = (req, res, next) => {
   }
 };
 
-async function saveData(ladder, response, playersCount, dataToSave) {
+async function saveData(ladder, server, response, playersCount, dataToSave) {
   try {
-    const arenaClassStats = await getClassStats(response, playersCount, classList);
+    const arenaClassStats = await getClassStats(
+      response,
+      playersCount,
+      classList
+    );
     const arenaSpecStats = await getSpecStats(response, playersCount, specList);
     const arenaType = ladder + "stats";
-    dataToSave[arenaType] = {};
-    dataToSave[arenaType]["class"] = arenaClassStats;
-    dataToSave[arenaType]["spec"] = arenaSpecStats;
+    dataToSave[server] = {};
+    dataToSave[server][arenaType] = {};
+    dataToSave[server][arenaType]["class"] = arenaClassStats;
+    dataToSave[server][arenaType]["spec"] = arenaSpecStats;
     const pvpLeaderBoard = new PvpLeaderboard(dataToSave);
     pvpLeaderBoard.save((err, data) => {
       if (err) {
@@ -101,19 +106,30 @@ async function saveData(ladder, response, playersCount, dataToSave) {
   }
 }
 
-const getLeaderBoards = ladder => {
+const getLeaderBoards = (ladder, server) => {
+  let endpoint = "";
+  if (server === "eu") {
+    endpoint =
+      "https://" +
+      server +
+      ".api.battle.net/wow/leaderboard/" +
+      ladder +
+      "?locale=en_GB&apikey=" +
+      process.env.WOW_API_KEY;
+  } else if(server === "us") {
+    endpoint =
+      "https://" +
+      server +
+      ".api.battle.net/wow/leaderboard/2v2?locale=en_US&apikey=" +
+      process.env.WOW_API_KEY;
+  }
   axios
-    .get(
-      "https://eu.api.battle.net/wow/leaderboard/" +
-        ladder +
-        "?locale=en_GB&apikey=" +
-        process.env.WOW_API_KEY
-    )
+    .get(endpoint)
     .then(function(response) {
       const playersCount = response.data.rows.length;
       const dataToSave = {};
       // dataToSave[ladder] = response.data.rows;
-      saveData(ladder, response, playersCount, dataToSave);
+      saveData(ladder, server, response, playersCount, dataToSave);
     })
     .catch(function(error) {
       console.log("error.data", error.data);
@@ -124,7 +140,7 @@ const getLeaderBoards = ladder => {
     });
 };
 
-// const scheduled = schedule.scheduleJob("55 * * * * *", function() {
+// const scheduled = schedule.scheduleJob("45 * * * * *", function() {
 //   console.log("Scheduled job started");
 //   const mongoDB = `mongodb://vincent:${
 //     process.env.DB_PASS
@@ -139,9 +155,12 @@ const getLeaderBoards = ladder => {
 //     console.log("Connected to the DB");
 //     db.collection("pvpleaderboards").deleteMany({});
 //     console.log("Previous documents deleted");
-//     getLeaderBoards("2v2");
-//     getLeaderBoards("3v3");
-//     getLeaderBoards("rbg");
+//     getLeaderBoards("2v2", "eu");
+//     getLeaderBoards("3v3", "eu");
+//     getLeaderBoards("rbg", "eu");
+//     getLeaderBoards("2v2", "us");
+//     getLeaderBoards("3v3", "us");
+//     getLeaderBoards("rbg", "us");
 //   });
 // });
 
