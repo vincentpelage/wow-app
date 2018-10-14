@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import styled from "styled-components";
 import Home from "./views/Home";
 import RaidsAchievements from "./containers/RaidsAchievements";
 import DungeonsAchievements from "./containers/DungeonsAchievements";
@@ -11,6 +13,29 @@ export const faction = {
   horde: "horde",
   alliance: "alliance"
 };
+
+const WrapperSwitch = styled.div`
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  &.pageSlider-enter {
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  &.pageSlider-enter.pageSlider-enter-active {
+    transform: translate3d(0, 0, 0);
+    transition: all 600ms;
+  }
+  &.pageSlider-exit {
+    transform: translate3d(0, 0, 0);
+  }
+
+  &.pageSlider-exit.pageSlider-exit-active {
+    transform: translate3d(100%, 0, 0);
+    transition: all 600ms;
+  }
+`;
 
 class App extends Component {
   state = {
@@ -45,26 +70,68 @@ class App extends Component {
     }
     return (
       <ThemeProvider theme={this.state.theme}>
-        <div>
-          <Route
-            exact
-            path="/"
-            render={() => <Home selectTheme={this.selectTheme} />}
-          />
-          <Route
-            path="/hauts-faits-donjon"
-            render={() => (
-              <DungeonsAchievements toggleTheme={this.toggleTheme} />
-            )}
-          />
-          <Route
-            path="/hauts-faits-raid"
-            render={() => <RaidsAchievements toggleTheme={this.toggleTheme} />}
-          />
-        </div>
+        <Route
+          render={({ location }) => (
+            <TransitionGroup>
+              <CSSTransition
+                key={location.key}
+                timeout={500}
+                classNames="pageSlider"
+                mountOnEnter={true}
+                unmountOnExit={true}
+              >
+                <WrapperSwitch>
+                  <Switch location={location}>
+                    <Route
+                      exact
+                      path="/"
+                      render={() => <Home selectTheme={this.selectTheme} />}
+                    />
+                    <Route
+                      path="/hauts-faits-donjon"
+                      render={() => (
+                        <DungeonsAchievements toggleTheme={this.toggleTheme} />
+                      )}
+                    />
+                    <Route
+                      path="/hauts-faits-raid"
+                      render={() => (
+                        <RaidsAchievements toggleTheme={this.toggleTheme} />
+                      )}
+                    />
+                  </Switch>
+                </WrapperSwitch>
+              </CSSTransition>
+            </TransitionGroup>
+          )}
+        />
+
+        {/* <TransitionGroup>
+          <CSSTransition key={location.key} timeout={{ enter: 300, exit: 300 }}>
+            <Switch location={location}>
+              <Route
+                exact
+                path="/"
+                render={() => <Home selectTheme={this.selectTheme} />}
+              />
+              <Route
+                path="/hauts-faits-donjon"
+                render={() => (
+                  <DungeonsAchievements toggleTheme={this.toggleTheme} />
+                )}
+              />
+              <Route
+                path="/hauts-faits-raid"
+                render={() => (
+                  <RaidsAchievements toggleTheme={this.toggleTheme} />
+                )}
+              />
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup> */}
       </ThemeProvider>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

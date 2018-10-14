@@ -192,22 +192,23 @@ class RaidsAchievements extends React.Component {
             </BannerButton>
           </WrapperForm>
         </Banner>
-        <ResultContainer
-          isResultActive={
-            raidsAchievements.data &&
-            !isErrorDisplay &&
-            !raidsAchievements.data.error
-              ? true
-              : false
-          }
-        >
-          {!isErrorDisplay &&
-            raidsAchievements.data &&
-            !raidsAchievements.data.error &&
-            Object.keys(raidsAchievements.data).length > 0 && (
+
+        {!isErrorDisplay &&
+          raidsAchievements.data &&
+          !raidsAchievements.data.error &&
+          Object.keys(raidsAchievements.data).length > 0 && (
+            <ResultContainer
+              isResultActive={
+                raidsAchievements.data &&
+                !isErrorDisplay &&
+                !raidsAchievements.data.error
+                  ? true
+                  : false
+              }
+            >
               <ResultRaid data={raidsAchievements.data} />
-            )}
-        </ResultContainer>
+            </ResultContainer>
+          )}
       </React.Fragment>
     );
   }

@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { keyframes } from "styled-components";
-import { getIconStyles } from "./styles";
+import { getSpinnerStyles } from "./styles";
 
 const spin = keyframes`
   from {
@@ -13,7 +13,7 @@ const spin = keyframes`
 `;
 
 const StyledSpinner = styled.span`
-  ${getIconStyles};
+  ${getSpinnerStyles};
 `;
 
 const Wrapper = styled.svg`
