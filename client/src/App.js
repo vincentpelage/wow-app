@@ -105,30 +105,6 @@ class App extends Component {
             </TransitionGroup>
           )}
         />
-
-        {/* <TransitionGroup>
-          <CSSTransition key={location.key} timeout={{ enter: 300, exit: 300 }}>
-            <Switch location={location}>
-              <Route
-                exact
-                path="/"
-                render={() => <Home selectTheme={this.selectTheme} />}
-              />
-              <Route
-                path="/hauts-faits-donjon"
-                render={() => (
-                  <DungeonsAchievements toggleTheme={this.toggleTheme} />
-                )}
-              />
-              <Route
-                path="/hauts-faits-raid"
-                render={() => (
-                  <RaidsAchievements toggleTheme={this.toggleTheme} />
-                )}
-              />
-            </Switch>
-          </CSSTransition>
-        </TransitionGroup> */}
       </ThemeProvider>
     );
   }

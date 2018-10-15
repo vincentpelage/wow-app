@@ -12,6 +12,7 @@ import ResultDungeon from "./ResultDungeon";
 import { global } from "../../styles/theme/globalStyle";
 import Spinner from "../../components/spinner";
 import ErrorMessage from "../../components/ErrorMessage";
+import { startAnimation } from "../../helpers/animation";
 
 const WrapperForm = styled.div`
   z-index: 3;
@@ -56,7 +57,8 @@ class DungeonsAchievements extends React.Component {
     characterKingdom: "",
     characterRegion: "",
     errorMessage: "",
-    isErrorDisplay: false
+    isErrorDisplay: false,
+    animateResult: false
   };
 
   componentDidUpdate(prevProps) {
@@ -70,6 +72,17 @@ class DungeonsAchievements extends React.Component {
         errorMessage:
           "Sorry, we can't found your datas. Are you sure you've filled the form correctly ?",
         isErrorDisplay: true
+      });
+    }
+
+    if (
+      this.props.dungeonsAchievements !== prevProps.dungeonsAchievements &&
+      this.props.dungeonsAchievements.data !==
+        prevProps.dungeonsAchievements.data &&
+      !this.props.dungeonsAchievements.data.error
+    ) {
+      startAnimation(() => {
+        this.setState({ animateResult: true });
       });
     }
   }
@@ -100,7 +113,11 @@ class DungeonsAchievements extends React.Component {
         characterKingdom,
         characterRegion
       );
-      this.setState({ errorMessage: "", isErrorDisplay: false });
+      this.setState({
+        errorMessage: "",
+        isErrorDisplay: false,
+        animateResult: false
+      });
     } else {
       this.handleEmptyInput();
     }
@@ -131,18 +148,21 @@ class DungeonsAchievements extends React.Component {
 
   render() {
     const { toggleTheme, dungeonsAchievements } = this.props;
-    const { characterName, errorMessage, isErrorDisplay } = this.state;
+    const {
+      characterName,
+      errorMessage,
+      isErrorDisplay,
+      animateResult
+    } = this.state;
 
     return (
       <React.Fragment>
-        {isErrorDisplay && (
-          <ErrorMessage
-            isErrorDisplay={isErrorDisplay}
-            toggleErrorDisplay={this.toggleErrorDisplay}
-          >
-            {errorMessage}
-          </ErrorMessage>
-        )}
+        <ErrorMessage
+          isErrorDisplay={isErrorDisplay}
+          toggleErrorDisplay={this.toggleErrorDisplay}
+        >
+          {errorMessage}
+        </ErrorMessage>
         <Nav toggleTheme={toggleTheme} />
         <Banner
           title="Dungeon Achievements"
@@ -188,7 +208,7 @@ class DungeonsAchievements extends React.Component {
               height="auto"
               onClick={this.handleSubmit}
             >
-              {dungeonsAchievements.isLoading && <Spinner />}
+              <Spinner isLoading={dungeonsAchievements.isLoading} />
               <Search>Search</Search>
             </BannerButton>
           </WrapperForm>
@@ -207,7 +227,10 @@ class DungeonsAchievements extends React.Component {
                   : false
               }
             >
-              <ResultDungeon data={dungeonsAchievements.data} />
+              <ResultDungeon
+                data={dungeonsAchievements.data}
+                animateResult={animateResult}
+              />
             </ResultContainer>
           )}
       </React.Fragment>

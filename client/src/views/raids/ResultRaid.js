@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { CSSTransition } from "react-transition-group";
 import Card from "../../components/card";
 import { global } from "../../styles/theme/globalStyle";
 
@@ -14,6 +15,15 @@ const WrapperResultRaid = styled.div`
   color: #fff;
   margin: auto;
   padding: 24px 0;
+
+  &.result-transition-enter {
+    opacity: 0;
+  }
+  &.result-transition-enter-active {
+    opacity: 1;
+    transition: all 400ms ease-out;
+  }
+
   @media (min-width: ${global.minTablet}) {
     width: 75%;
     flex-direction: row;
@@ -64,44 +74,52 @@ const Tag = styled.span`
   right: 10px;
 `;
 
-const ResultRaid = ({ data, children }) => {
+const ResultRaid = ({ data, animateResult, children }) => {
   const dataRaidHeroic = data.filter(raid => raid.type === RAIDTYPE.heroic);
 
   const dataRaidMythic = data.filter(raid => raid.type === RAIDTYPE.mythic);
 
   return (
-    <WrapperResultRaid>
-      <WrapperCard>
-        {data &&
-          Object.keys(data).length > 0 && (
-            <div>
-              <Title>Heroic Raids</Title>
-              {dataRaidHeroic.map((raidHeroic, id) => (
-                <Card key={id} isDone={raidHeroic.done}>
-                  {raidHeroic.done ? <Tag>done</Tag> : null}
-                  <CardTitle>{raidHeroic.name}</CardTitle>
-                  <CardDescription>{raidHeroic.desc}</CardDescription>
-                </Card>
-              ))}
-            </div>
-          )}
-      </WrapperCard>
-      <WrapperCard>
-        {data &&
-          Object.keys(data).length > 0 && (
-            <div>
-              <Title>Mythical Raids</Title>
-              {dataRaidMythic.map((raidMytic, id) => (
-                <Card key={id} isDone={raidMytic.done}>
-                  {raidMytic.done ? <Tag>done</Tag> : null}
-                  <CardTitle>{raidMytic.name}</CardTitle>
-                  <CardDescription>{raidMytic.desc}</CardDescription>
-                </Card>
-              ))}
-            </div>
-          )}
-      </WrapperCard>
-    </WrapperResultRaid>
+    <CSSTransition
+      in={animateResult}
+      timeout={300}
+      classNames="result-transition"
+    >
+      {state => (
+        <WrapperResultRaid>
+          <WrapperCard>
+            {data &&
+              Object.keys(data).length > 0 && (
+                <div>
+                  <Title>Heroic Raids</Title>
+                  {dataRaidHeroic.map((raidHeroic, id) => (
+                    <Card key={id} isDone={raidHeroic.done}>
+                      {raidHeroic.done ? <Tag>done</Tag> : null}
+                      <CardTitle>{raidHeroic.name}</CardTitle>
+                      <CardDescription>{raidHeroic.desc}</CardDescription>
+                    </Card>
+                  ))}
+                </div>
+              )}
+          </WrapperCard>
+          <WrapperCard>
+            {data &&
+              Object.keys(data).length > 0 && (
+                <div>
+                  <Title>Mythical Raids</Title>
+                  {dataRaidMythic.map((raidMytic, id) => (
+                    <Card key={id} isDone={raidMytic.done}>
+                      {raidMytic.done ? <Tag>done</Tag> : null}
+                      <CardTitle>{raidMytic.name}</CardTitle>
+                      <CardDescription>{raidMytic.desc}</CardDescription>
+                    </Card>
+                  ))}
+                </div>
+              )}
+          </WrapperCard>
+        </WrapperResultRaid>
+      )}
+    </CSSTransition>
   );
 };
 

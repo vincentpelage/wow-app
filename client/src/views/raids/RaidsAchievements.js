@@ -12,6 +12,7 @@ import ResultRaid from "./ResultRaid";
 import { global } from "../../styles/theme/globalStyle";
 import Spinner from "../../components/spinner";
 import ErrorMessage from "../../components/ErrorMessage";
+import { startAnimation } from "../../helpers/animation";
 
 const WrapperForm = styled.div`
   z-index: 3;
@@ -71,6 +72,16 @@ class RaidsAchievements extends React.Component {
         isErrorDisplay: true
       });
     }
+
+    if (
+      this.props.raidsAchievements !== prevProps.raidsAchievements &&
+      this.props.raidsAchievements.data !== prevProps.raidsAchievements.data &&
+      !this.props.raidsAchievements.data.error
+    ) {
+      startAnimation(() => {
+        this.setState({ animateResult: true });
+      });
+    }
   }
 
   handleInputChange = event => {
@@ -99,7 +110,11 @@ class RaidsAchievements extends React.Component {
         characterKingdom,
         characterRegion
       );
-      this.setState({ errorMessage: "", isErrorDisplay: false });
+      this.setState({
+        errorMessage: "",
+        isErrorDisplay: false,
+        animateResult: false
+      });
     } else {
       this.handleEmptyInput();
     }
@@ -130,18 +145,22 @@ class RaidsAchievements extends React.Component {
 
   render() {
     const { toggleTheme, raidsAchievements } = this.props;
-    const { characterName, errorMessage, isErrorDisplay } = this.state;
+    const {
+      characterName,
+      errorMessage,
+      isErrorDisplay,
+      animateResult
+    } = this.state;
 
     return (
       <React.Fragment>
-        {isErrorDisplay && (
-          <ErrorMessage
-            isErrorDisplay={isErrorDisplay}
-            toggleErrorDisplay={this.toggleErrorDisplay}
-          >
-            {errorMessage}
-          </ErrorMessage>
-        )}
+        <ErrorMessage
+          isErrorDisplay={isErrorDisplay}
+          toggleErrorDisplay={this.toggleErrorDisplay}
+        >
+          {errorMessage}
+        </ErrorMessage>
+
         <Nav toggleTheme={toggleTheme} />
         <Banner
           title="Raid Achievements"
@@ -187,7 +206,7 @@ class RaidsAchievements extends React.Component {
               height="auto"
               onClick={this.handleSubmit}
             >
-              {raidsAchievements.isLoading && <Spinner />}
+              <Spinner isLoading={raidsAchievements.isLoading} />
               <Search>Search</Search>
             </BannerButton>
           </WrapperForm>
@@ -206,7 +225,10 @@ class RaidsAchievements extends React.Component {
                   : false
               }
             >
-              <ResultRaid data={raidsAchievements.data} />
+              <ResultRaid
+                data={raidsAchievements.data}
+                animateResult={animateResult}
+              />
             </ResultContainer>
           )}
       </React.Fragment>

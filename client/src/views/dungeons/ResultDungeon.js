@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { CSSTransition } from "react-transition-group";
 import Card from "../../components/card";
 import { global } from "../../styles/theme/globalStyle";
 
@@ -14,6 +15,15 @@ const WrapperResultDungeon = styled.div`
   color: #fff;
   margin: auto;
   padding: 24px 0;
+
+  &.result-transition-enter {
+    opacity: 0;
+  }
+  &.result-transition-enter-active {
+    opacity: 1;
+    transition: all 400ms ease-out;
+  }
+
   @media (min-width: ${global.minTablet}) {
     width: 75%;
     flex-direction: row;
@@ -64,7 +74,7 @@ const Tag = styled.span`
   right: 10px;
 `;
 
-const ResultDungeon = ({ data, children }) => {
+const ResultDungeon = ({ data, animateResult, children }) => {
   const dataDungeonHeroic = data.filter(
     dungeon => dungeon.type === DUNGEONTYPE.heroic
   );
@@ -74,38 +84,46 @@ const ResultDungeon = ({ data, children }) => {
   );
 
   return (
-    <WrapperResultDungeon>
-      <WrapperCard>
-        {data &&
-          Object.keys(data).length > 0 && (
-            <div>
-              <Title>Heroic Dungeons</Title>
-              {dataDungeonHeroic.map((dungeonHeroic, id) => (
-                <Card key={id} isDone={dungeonHeroic.done}>
-                  {dungeonHeroic.done ? <Tag>done</Tag> : null}
-                  <CardTitle>{dungeonHeroic.name}</CardTitle>
-                  <CardDescription>{dungeonHeroic.desc}</CardDescription>
-                </Card>
-              ))}
-            </div>
-          )}
-      </WrapperCard>
-      <WrapperCard>
-        {data &&
-          Object.keys(data).length > 0 && (
-            <div>
-              <Title>Mythical Dungeons</Title>
-              {dataDungeonMythic.map((dungeonMytic, id) => (
-                <Card key={id} isDone={dungeonMytic.done}>
-                  {dungeonMytic.done ? <Tag>done</Tag> : null}
-                  <CardTitle>{dungeonMytic.name}</CardTitle>
-                  <CardDescription>{dungeonMytic.desc}</CardDescription>
-                </Card>
-              ))}
-            </div>
-          )}
-      </WrapperCard>
-    </WrapperResultDungeon>
+    <CSSTransition
+      in={animateResult}
+      timeout={300}
+      classNames="result-transition"
+    >
+      {state => (
+        <WrapperResultDungeon animateResult={animateResult}>
+          <WrapperCard>
+            {data &&
+              Object.keys(data).length > 0 && (
+                <div>
+                  <Title>Heroic Dungeons</Title>
+                  {dataDungeonHeroic.map((dungeonHeroic, id) => (
+                    <Card key={id} isDone={dungeonHeroic.done}>
+                      {dungeonHeroic.done ? <Tag>done</Tag> : null}
+                      <CardTitle>{dungeonHeroic.name}</CardTitle>
+                      <CardDescription>{dungeonHeroic.desc}</CardDescription>
+                    </Card>
+                  ))}
+                </div>
+              )}
+          </WrapperCard>
+          <WrapperCard>
+            {data &&
+              Object.keys(data).length > 0 && (
+                <div>
+                  <Title>Mythical Dungeons</Title>
+                  {dataDungeonMythic.map((dungeonMytic, id) => (
+                    <Card key={id} isDone={dungeonMytic.done}>
+                      {dungeonMytic.done ? <Tag>done</Tag> : null}
+                      <CardTitle>{dungeonMytic.name}</CardTitle>
+                      <CardDescription>{dungeonMytic.desc}</CardDescription>
+                    </Card>
+                  ))}
+                </div>
+              )}
+          </WrapperCard>
+        </WrapperResultDungeon>
+      )}
+    </CSSTransition>
   );
 };
 
