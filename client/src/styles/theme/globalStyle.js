@@ -59,18 +59,19 @@ injectGlobal`
     font-weight: normal;
     font-size: 45px;
     margin: 0;
+    letter-spacing: 3px;
     @media (min-width: ${global.minTablet}) {
       font-size: 55px;
     }
   }
   h2 {
     margin: 0;
-    font-family: LifeCraftFont, sans-serif;
+    font-family: Roboto, sans-serif;
     font-weight: 300;
-    font-size: 20px;
+    font-size: 10px;
     margin: 0;
     @media (min-width: ${global.minTablet}) {
-      font-size: 24px;
+      font-size: 12px;
     }
   }
   ul {

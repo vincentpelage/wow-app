@@ -42,18 +42,17 @@ const Title = styled.h2`
   border: 1px solid;
   border-radius: 3px;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 16px;
+  letter-spacing: 1.5px;
   opacity: 0.9;
 `;
 const CardTitle = styled.p`
-  font-family: LifeCraftFont, sans-serif;
-  font-size: 18px;
+  font-size: 12px;
   margin-bottom: 5px;
-  text-transform: lowercase;
-  letter-spacing: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 400;
   @media (min-width: ${global.minTablet}) {
-    font-size: 20px;
+    font-size: 14px;
   }
 `;
 const CardDescription = styled.p`
