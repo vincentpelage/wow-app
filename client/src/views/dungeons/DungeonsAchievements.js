@@ -100,6 +100,11 @@ class DungeonsAchievements extends React.Component {
         characterKingdom,
         characterRegion
       );
+      this.props.getRaidsAchievements(
+          characterName,
+          characterKingdom,
+          characterRegion
+      );
       this.setState({ errorMessage: "", isErrorDisplay: false });
     } else {
       this.handleEmptyInput();

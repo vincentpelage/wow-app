@@ -99,6 +99,11 @@ class RaidsAchievements extends React.Component {
         characterKingdom,
         characterRegion
       );
+      this.props.getDungeonAchievements(
+        characterName,
+        characterKingdom,
+        characterRegion
+      );
       this.setState({ errorMessage: "", isErrorDisplay: false });
     } else {
       this.handleEmptyInput();
