@@ -53,9 +53,9 @@ const Search = styled.span`
 
 class DungeonsAchievements extends React.Component {
   state = {
-    characterName: "",
-    characterKingdom: "",
-    characterRegion: "",
+    // characterName: "",
+    // characterKingdom: "",
+    // characterRegion: "",
     errorMessage: "",
     isErrorDisplay: false,
     animateResult: false
@@ -89,19 +89,23 @@ class DungeonsAchievements extends React.Component {
 
   handleInputChange = event => {
     const characterName = event.target.value.trim();
-    this.setState({ characterName });
+    this.props.setInput("characterName", characterName);
   };
 
   handleSelectChange = characterKingdom => {
-    this.setState({ characterKingdom: characterKingdom.value });
+    this.props.setInput("characterKingdom", characterKingdom.value);
   };
 
   handleSelectRegionChange = characterRegion => {
-    this.setState({ characterRegion: characterRegion.value });
+    this.props.setInput("characterRegion", characterRegion.value);
   };
 
   handleSubmit = () => {
-    const { characterName, characterKingdom, characterRegion } = this.state;
+    const {
+      characterName,
+      characterKingdom,
+      characterRegion
+    } = this.props.form;
 
     if (
       characterName.length > 0 &&
@@ -109,6 +113,11 @@ class DungeonsAchievements extends React.Component {
       characterRegion.length > 0
     ) {
       this.props.actions.getDungeonAchievements(
+        characterName,
+        characterKingdom,
+        characterRegion
+      );
+      this.props.getRaidsAchievements(
         characterName,
         characterKingdom,
         characterRegion
@@ -124,7 +133,11 @@ class DungeonsAchievements extends React.Component {
   };
 
   handleEmptyInput = () => {
-    const { characterName, characterKingdom, characterRegion } = this.state;
+    const {
+      characterName,
+      characterKingdom,
+      characterRegion
+    } = this.props.form;
     if (
       characterName.length === 0 ||
       characterKingdom.length === 0 ||
@@ -148,12 +161,31 @@ class DungeonsAchievements extends React.Component {
 
   render() {
     const { toggleTheme, dungeonsAchievements } = this.props;
+    const { errorMessage, isErrorDisplay, animateResult } = this.state;
+
     const {
       characterName,
-      errorMessage,
-      isErrorDisplay,
-      animateResult
-    } = this.state;
+      characterKingdom,
+      characterRegion
+    } = this.props.form;
+
+    let characterKingdomOption = null;
+
+    if (characterKingdom !== "") {
+      characterKingdomOption = {
+        value: characterKingdom,
+        label: characterKingdom
+      };
+    }
+
+    let characterRegionOption = null;
+
+    if (characterRegion !== "") {
+      characterRegionOption = {
+        value: characterRegion,
+        label: characterRegion
+      };
+    }
 
     return (
       <React.Fragment>
@@ -189,8 +221,9 @@ class DungeonsAchievements extends React.Component {
                 onChange={this.handleSelectChange}
                 options={optionsKingdom}
                 placeholder="Kingdom"
-                className="react-select-container"
+                className="react-select-container select-kingdom"
                 classNamePrefix="react-select"
+                value={characterKingdomOption}
               />
             </WrapperSelect>
             <WrapperSelect>
@@ -198,8 +231,9 @@ class DungeonsAchievements extends React.Component {
                 onChange={this.handleSelectRegionChange}
                 options={optionsRegions}
                 placeholder="Region"
-                className="react-select-container"
+                className="react-select-container select-region"
                 classNamePrefix="react-select"
+                value={characterRegionOption}
               />
             </WrapperSelect>
             <BannerButton
