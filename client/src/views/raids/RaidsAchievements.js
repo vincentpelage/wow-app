@@ -52,9 +52,9 @@ const Search = styled.span`
 
 class RaidsAchievements extends React.Component {
   state = {
-    characterName: "",
-    characterKingdom: "",
-    characterRegion: "",
+    // characterName: "",
+    // characterKingdom: "",
+    // characterRegion: "",
     errorMessage: "",
     isErrorDisplay: false
   };
@@ -75,19 +75,23 @@ class RaidsAchievements extends React.Component {
 
   handleInputChange = event => {
     const characterName = event.target.value.trim();
-    this.setState({ characterName });
+    this.props.setInput("characterName", characterName);
   };
 
   handleSelectChange = characterKingdom => {
-    this.setState({ characterKingdom: characterKingdom.value });
+    this.props.setInput("characterKingdom", characterKingdom.value);
   };
 
   handleSelectRegionChange = characterRegion => {
-    this.setState({ characterRegion: characterRegion.value });
+    this.props.setInput("characterRegion", characterRegion.value);
   };
 
   handleSubmit = () => {
-    const { characterName, characterKingdom, characterRegion } = this.state;
+    const {
+      characterName,
+      characterKingdom,
+      characterRegion
+    } = this.props.form;
 
     if (
       characterName.length > 0 &&
@@ -111,7 +115,7 @@ class RaidsAchievements extends React.Component {
   };
 
   handleEmptyInput = () => {
-    const { characterName, characterKingdom, characterRegion } = this.state;
+    const { characterName, characterKingdom, characterRegion } = this.props.form;
     if (
       characterName.length === 0 ||
       characterKingdom.length === 0 ||
@@ -135,7 +139,20 @@ class RaidsAchievements extends React.Component {
 
   render() {
     const { toggleTheme, raidsAchievements } = this.props;
-    const { characterName, errorMessage, isErrorDisplay } = this.state;
+    const { errorMessage, isErrorDisplay } = this.state;
+    const {
+      characterName,
+      characterKingdom,
+      characterRegion
+    } = this.props.form;
+    const characterKingdomOption = {
+      value: characterKingdom,
+      label: characterKingdom
+    };
+    const characterRegionOption = {
+      value: characterRegion,
+      label: characterRegion
+    };
 
     return (
       <React.Fragment>
@@ -175,6 +192,7 @@ class RaidsAchievements extends React.Component {
                 placeholder="Kingdom"
                 className="react-select-container"
                 classNamePrefix="react-select"
+                value={characterKingdomOption}
               />
             </WrapperSelect>
             <WrapperSelect>
@@ -184,6 +202,7 @@ class RaidsAchievements extends React.Component {
                 placeholder="Region"
                 className="react-select-container"
                 classNamePrefix="react-select"
+                value={characterRegionOption}
               />
             </WrapperSelect>
             <BannerButton
