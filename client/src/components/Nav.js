@@ -64,13 +64,14 @@ const WrapperNav = styled.div`
   z-index: 1;
   display: flex;
   flex-direction: column;
+  transition: top 0.5s ease-in-out;
   @media (max-width: ${global.maxMobile}) {
-    display: ${props => (props.isBurgerActive ? "flex" : "none")};
+    top: ${props => (props.isBurgerActive ? "0" : "-100vh")};
   }
   @media (min-width: ${global.minTablet}) {
     flex-direction: row;
     width: 75%;
-    height: auto
+    height: auto;
     justify-content: center;
     align-items: stretch;
   }
@@ -121,7 +122,7 @@ const MenuLink = styled(NavLink)`
   }
   @media (min-width: ${global.minTablet}) {
     letter-spacing: 2px;
-    padding: 12px 18px;
+    padding: 12px 10px;
     &:first-child {
       border-bottom-left-radius: ${global.borderRadius};
     }
@@ -135,6 +136,7 @@ const MenuLink = styled(NavLink)`
   }
   @media (min-width: ${global.minDesktop}) {
     letter-spacing: 3px;
+    padding: 12px 18px;
   }
 `;
 
@@ -176,6 +178,11 @@ const ButtonFaction = styled.button`
     box-shadow: none;
     outline: none;
   }
+  &:active {
+    svg {
+      transform: scale(1.3);
+    }
+  }
   @media (min-width: ${global.minTablet}) {
     right: 1.75%;
     left: inherit;
@@ -209,6 +216,7 @@ class Nav extends Component {
           <BurgerBar isBurgerActive={isBurgerActive} />
           <BurgerBar isBurgerActive={isBurgerActive} />
         </WrapperBurger>
+
         <WrapperNav isBurgerActive={isBurgerActive}>
           <HomeLink exact to="/" activeClassName="active">
             <IconHome />
@@ -227,6 +235,7 @@ class Nav extends Component {
             <Name>PVP Achievements</Name>
           </MenuLink>
         </WrapperNav>
+
         <ButtonFaction onClick={toggleTheme}>
           <IconFaction />
         </ButtonFaction>

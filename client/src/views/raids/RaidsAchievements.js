@@ -12,6 +12,7 @@ import ResultRaid from "./ResultRaid";
 import { global } from "../../styles/theme/globalStyle";
 import Spinner from "../../components/spinner";
 import ErrorMessage from "../../components/ErrorMessage";
+import { startAnimation } from "../../helpers/animation";
 
 const WrapperForm = styled.div`
   z-index: 3;
@@ -71,6 +72,16 @@ class RaidsAchievements extends React.Component {
         isErrorDisplay: true
       });
     }
+
+    if (
+      this.props.raidsAchievements !== prevProps.raidsAchievements &&
+      this.props.raidsAchievements.data !== prevProps.raidsAchievements.data &&
+      !this.props.raidsAchievements.data.error
+    ) {
+      startAnimation(() => {
+        this.setState({ animateResult: true });
+      });
+    }
   }
 
   handleInputChange = event => {
@@ -108,14 +119,22 @@ class RaidsAchievements extends React.Component {
         characterKingdom,
         characterRegion
       );
-      this.setState({ errorMessage: "", isErrorDisplay: false });
+      this.setState({
+        errorMessage: "",
+        isErrorDisplay: false,
+        animateResult: false
+      });
     } else {
       this.handleEmptyInput();
     }
   };
 
   handleEmptyInput = () => {
-    const { characterName, characterKingdom, characterRegion } = this.props.form;
+    const {
+      characterName,
+      characterKingdom,
+      characterRegion
+    } = this.props.form;
     if (
       characterName.length === 0 ||
       characterKingdom.length === 0 ||
@@ -139,16 +158,19 @@ class RaidsAchievements extends React.Component {
 
   render() {
     const { toggleTheme, raidsAchievements } = this.props;
-    const { errorMessage, isErrorDisplay } = this.state;
+    const { errorMessage, isErrorDisplay, animateResult } = this.state;
+
     const {
       characterName,
       characterKingdom,
       characterRegion
     } = this.props.form;
+
     const characterKingdomOption = {
       value: characterKingdom,
       label: characterKingdom
     };
+
     const characterRegionOption = {
       value: characterRegion,
       label: characterRegion
@@ -156,14 +178,13 @@ class RaidsAchievements extends React.Component {
 
     return (
       <React.Fragment>
-        {isErrorDisplay && (
-          <ErrorMessage
-            isErrorDisplay={isErrorDisplay}
-            toggleErrorDisplay={this.toggleErrorDisplay}
-          >
-            {errorMessage}
-          </ErrorMessage>
-        )}
+        <ErrorMessage
+          isErrorDisplay={isErrorDisplay}
+          toggleErrorDisplay={this.toggleErrorDisplay}
+        >
+          {errorMessage}
+        </ErrorMessage>
+
         <Nav toggleTheme={toggleTheme} />
         <Banner
           title="Raid Achievements"
@@ -211,27 +232,31 @@ class RaidsAchievements extends React.Component {
               height="auto"
               onClick={this.handleSubmit}
             >
-              {raidsAchievements.isLoading && <Spinner />}
+              <Spinner isLoading={raidsAchievements.isLoading} />
               <Search>Search</Search>
             </BannerButton>
           </WrapperForm>
         </Banner>
-        <ResultContainer
-          isResultActive={
-            raidsAchievements.data &&
-            !isErrorDisplay &&
-            !raidsAchievements.data.error
-              ? true
-              : false
-          }
-        >
-          {!isErrorDisplay &&
-            raidsAchievements.data &&
-            !raidsAchievements.data.error &&
-            Object.keys(raidsAchievements.data).length > 0 && (
-              <ResultRaid data={raidsAchievements.data} />
-            )}
-        </ResultContainer>
+
+        {!isErrorDisplay &&
+          raidsAchievements.data &&
+          !raidsAchievements.data.error &&
+          Object.keys(raidsAchievements.data).length > 0 && (
+            <ResultContainer
+              isResultActive={
+                raidsAchievements.data &&
+                !isErrorDisplay &&
+                !raidsAchievements.data.error
+                  ? true
+                  : false
+              }
+            >
+              <ResultRaid
+                data={raidsAchievements.data}
+                animateResult={animateResult}
+              />
+            </ResultContainer>
+          )}
       </React.Fragment>
     );
   }

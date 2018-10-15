@@ -12,6 +12,7 @@ const InputElement = styled.input`
   background: none;
   border: none;
   outline: none;
+  text-transform: capitalize;
   transition: box-shadow 200ms ease-in-out;
   transition-delay: 50ms;
   ${getInnerStyle};

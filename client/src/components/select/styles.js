@@ -3,6 +3,14 @@ import styled from "styled-components";
 import { global } from "../../styles/theme/globalStyle";
 
 export const StylingSelect = styled(ReactSelect)`
+  &.select-kingdom .react-select__single-value {
+    text-transform: capitalize;
+  }
+
+  &.select-region .react-select__single-value {
+    text-transform: uppercase;
+  }
+
   & .react-select__placeholder,
   & .react-select__menu-list,
   & .react-select__single-value {

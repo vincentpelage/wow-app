@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { keyframes } from "styled-components";
-import { getIconStyles } from "./styles";
+import { getSpinnerStyles } from "./styles";
 
 const spin = keyframes`
   from {
@@ -13,7 +13,7 @@ const spin = keyframes`
 `;
 
 const StyledSpinner = styled.span`
-  ${getIconStyles};
+  ${getSpinnerStyles};
 `;
 
 const Wrapper = styled.svg`
@@ -25,9 +25,9 @@ const Circle = styled.circle`
   stroke-dashoffset: 55;
 `;
 
-const Spinner = ({ size }) => {
+const Spinner = ({ size, isLoading }) => {
   return (
-    <StyledSpinner {...size}>
+    <StyledSpinner {...size} isLoading={isLoading}>
       <Wrapper viewBox="0 0 24 24" width="24" height="24">
         <Circle
           innerRef={ref => {

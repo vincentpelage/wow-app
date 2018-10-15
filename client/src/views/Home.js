@@ -26,6 +26,7 @@ const Visuel = styled(Link)`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  transition: all 0.5s ease-in-out;
   z-index: 0;
   cursor: pointer;
   &::after {
@@ -38,11 +39,15 @@ const Visuel = styled(Link)`
     opacity: 0.6;
     transition: all ease 0.3s;
   }
+  &:hover {
+    flex-basis: 95%;
+  }
 `;
 
 const Horde = Visuel.extend`
   background-image: url(${Sylvanas});
   border: 5px solid ${themeHorde.medium};
+
   &::after {
     background: ${themeHorde.medium};
   }
@@ -52,7 +57,7 @@ const Horde = Visuel.extend`
   }
   &:hover {
     &::after {
-      opacity: 0.3;
+      opacity: 0.1;
     }
     & > div {
       left: 0;
@@ -95,7 +100,7 @@ const HordeBanner = Banner.extend`
 `;
 
 const AllianceBanner = Banner.extend`
-  right: -242px;
+  right: -253px;
   border-top-left-radius: ${global.borderRadius};
   border-bottom-left-radius: ${global.borderRadius};
 `;

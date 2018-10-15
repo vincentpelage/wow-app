@@ -18,7 +18,9 @@ const dungeonAchievementsMiddleware = store => next => action => {
         })
         .then(({ data }) => {
           console.log("data", data);
-          store.dispatch(getDungeonAchievementsFromAPi(data), setLoader(false));
+          store
+            .dispatch(getDungeonAchievementsFromAPi(data))
+            .then(() => store.dispatch(setLoader(false)));
         })
         .catch(() => {
           console.log("Request did not work");

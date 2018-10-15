@@ -15,12 +15,14 @@ const getSize = size => {
   }
 };
 
-export const getIconStyles = props => {
+export const getSpinnerStyles = props => {
   const size = getSize(props.size);
 
   return css`
     display: inline-block;
-    width: ${size};
     height: ${size};
+    transition: all 300ms ease-in-out;
+    width: ${props => (props.isLoading ? size : "0")};
+    opacity: ${props => (props.isLoading ? "1" : "0")};
   `;
 };
