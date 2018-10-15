@@ -2,9 +2,11 @@ const express = require("express");
 const schedule = require("node-schedule");
 const mongoose = require("mongoose");
 const axios = require("axios");
+const rateLimit = require("express-rate-limit");
 
 const path = require("path");
 const bodyParser = require("body-parser");
+
 require("dotenv").config();
 
 const dungeonsAchievements = require("./controllers/dungeonsAchievements");
@@ -18,6 +20,16 @@ const getSpecStats = require("./utils/getSpec/getSpecStats");
 const specList = require("./utils/getSpec/specList");
 
 const app = express();
+
+app.enable("trust proxy");
+
+const limiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 10
+});
+
+//  apply to all requests
+app.use(limiter);
 
 // allowing Access-Control-Allow-Origin
 app.use((req, res, next) => {
