@@ -1,0 +1,20 @@
+module.exports = raceList = {
+    1: "Human",
+    2: "Orc",
+    3: "Dwarf",
+    4: "Night elf",
+    5: "Undead",
+    6: "Tauren",
+    7: "Gnome",
+    8: "Troll",
+    9: "Goblin",
+    10: "Blood elf",
+    11: "Draenei",
+    22: "Worgen",
+    25: "Pandaren",
+    26: "Pandaren",
+    28: "Highmountain tauren",
+    29: "Void-elf",
+    30: "Lightforged draenei",
+    36: "Maghar-orc"
+};

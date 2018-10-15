@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Home from "./views/Home";
 import RaidsAchievements from "./containers/RaidsAchievements";
 import DungeonsAchievements from "./containers/DungeonsAchievements";
+import PvpLeaderboard from "./containers/PvpLeaderboard";
 import { themeHorde, themeAlliance } from "./styles/theme/globalStyle";
 import { ThemeProvider } from "styled-components";
 import setLocalStorageTheme from "./utils";
@@ -98,6 +99,10 @@ class App extends Component {
                       render={() => (
                         <RaidsAchievements toggleTheme={this.toggleTheme} />
                       )}
+                    />
+                    <Route
+                      path="/hauts-faits-pvp"
+                      render={() => <PvpLeaderboard />}
                     />
                   </Switch>
                 </WrapperSwitch>
