@@ -2,9 +2,11 @@ const express = require("express");
 const schedule = require("node-schedule");
 const mongoose = require("mongoose");
 const axios = require("axios");
+const rateLimit = require("express-rate-limit");
 
 const path = require("path");
 const bodyParser = require("body-parser");
+
 require("dotenv").config();
 
 const dungeonsAchievements = require("./controllers/dungeonsAchievements");
@@ -19,7 +21,15 @@ const specList = require("./utils/getSpec/specList");
 
 const app = express();
 
-// allowing Access-Control-Allow-Origin
+app.enable("trust proxy");
+
+const limiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 50
+});
+
+app.use(limiter);
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
@@ -128,12 +138,10 @@ const getLeaderBoards = (ladder, server) => {
     .then(function(response) {
       const playersCount = response.data.rows.length;
       const dataToSave = {};
-      // dataToSave[ladder] = response.data.rows;
       saveData(ladder, server, response, playersCount, dataToSave);
     })
     .catch(function(error) {
       console.log("error.data", error.data);
-      // res.send({});
     })
     .then(function() {
       console.log("Axios request ended");
