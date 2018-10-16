@@ -1,7 +1,7 @@
 import { injectGlobal } from "styled-components";
 import LifeCraftFont from "../../assets/fonts/LifeCraftFont.ttf";
-import Sylvanas from "../../assets/images/sylvanas.jpg";
-import Anduin from "../../assets/images/anduin.jpg";
+import Sylvanas from "../../assets/images/sylvanas-opt.jpg";
+import Anduin from "../../assets/images/anduin-opt.jpg";
 
 export const global = {
   borderRadius: "3px",

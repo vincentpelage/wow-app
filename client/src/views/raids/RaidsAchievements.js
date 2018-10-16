@@ -166,15 +166,23 @@ class RaidsAchievements extends React.Component {
       characterRegion
     } = this.props.form;
 
-    const characterKingdomOption = {
-      value: characterKingdom,
-      label: characterKingdom
-    };
+    let characterKingdomOption = null;
 
-    const characterRegionOption = {
-      value: characterRegion,
-      label: characterRegion
-    };
+    if (characterKingdom !== "") {
+      characterKingdomOption = {
+        value: characterKingdom,
+        label: characterKingdom
+      };
+    }
+
+    let characterRegionOption = null;
+
+    if (characterRegion !== "") {
+      characterRegionOption = {
+        value: characterRegion,
+        label: characterRegion
+      };
+    }
 
     return (
       <React.Fragment>
@@ -211,7 +219,7 @@ class RaidsAchievements extends React.Component {
                 onChange={this.handleSelectChange}
                 options={optionsKingdom}
                 placeholder="Kingdom"
-                className="react-select-container"
+                className="react-select-container select-kingdom"
                 classNamePrefix="react-select"
                 value={characterKingdomOption}
               />
@@ -221,7 +229,7 @@ class RaidsAchievements extends React.Component {
                 onChange={this.handleSelectRegionChange}
                 options={optionsRegions}
                 placeholder="Region"
-                className="react-select-container"
+                className="react-select-container select-region"
                 classNamePrefix="react-select"
                 value={characterRegionOption}
               />
