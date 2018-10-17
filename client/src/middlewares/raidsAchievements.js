@@ -17,10 +17,8 @@ const raidAchievementsMiddleware = store => next => action => {
           }
         })
         .then(({ data }) => {
-          console.log("data", data);
           store
-            .dispatch(getRaidsAchievementsFromAPi(data))
-            .then(() => store.dispatch(setLoader(false)));
+            .dispatch(getRaidsAchievementsFromAPi(data), setLoader(false))
         })
         .catch(() => {
           console.log("Request did not work");
