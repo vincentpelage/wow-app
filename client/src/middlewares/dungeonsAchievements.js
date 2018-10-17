@@ -17,13 +17,11 @@ const dungeonAchievementsMiddleware = store => next => action => {
           }
         })
         .then(({ data }) => {
-          console.log("data", data);
           store
-            .dispatch(getDungeonAchievementsFromAPi(data))
-            .then(() => store.dispatch(setLoader(false)));
+            .dispatch(getDungeonAchievementsFromAPi(data), setLoader(false))
         })
-        .catch(() => {
-          console.log("Request did not work");
+        .catch((e) => {
+          console.log(e);
         });
       break;
     }

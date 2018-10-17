@@ -1,7 +1,7 @@
 import {
     GET_PVP_LEADERBOARD,
     GET_PVP_LEADERBOARD_FROM_API,
-    SET_LOADER
+    SET_LOADER_PVP
 } from "./actionTypes";
 
 export const getPvpLeaderboard = () => dispatch => {
@@ -17,9 +17,9 @@ export const getPvpLeaderboardFromAPi = data => dispatch => {
     });
 };
 
-export const setLoader = bool => dispatch => {
+export const setLoaderPvp = bool => dispatch => {
     dispatch({
-        type: SET_LOADER,
+        type: SET_LOADER_PVP,
         isLoading: bool
     });
 };
