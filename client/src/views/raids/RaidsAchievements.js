@@ -159,6 +159,11 @@ class RaidsAchievements extends React.Component {
   render() {
     const { toggleTheme, raidsAchievements } = this.props;
     const { errorMessage, isErrorDisplay, animateResult } = this.state;
+    const isDataReceived =
+      !isErrorDisplay &&
+      raidsAchievements.data &&
+      !raidsAchievements.data.error &&
+      Object.keys(raidsAchievements.data).length > 0;
 
     const {
       characterName,
@@ -195,14 +200,8 @@ class RaidsAchievements extends React.Component {
 
         <Nav toggleTheme={toggleTheme} />
         <Banner
-          title="Raid Achievements"
-          isResultActive={
-            raidsAchievements.data &&
-            !isErrorDisplay &&
-            !raidsAchievements.data.error
-              ? true
-              : false
-          }
+          title="raid achievements"
+          isResultActive={isDataReceived ? true : false}
         >
           <WrapperForm>
             <WrapperInput>
@@ -246,25 +245,14 @@ class RaidsAchievements extends React.Component {
           </WrapperForm>
         </Banner>
 
-        {!isErrorDisplay &&
-          raidsAchievements.data &&
-          !raidsAchievements.data.error &&
-          Object.keys(raidsAchievements.data).length > 0 && (
-            <ResultContainer
-              isResultActive={
-                raidsAchievements.data &&
-                !isErrorDisplay &&
-                !raidsAchievements.data.error
-                  ? true
-                  : false
-              }
-            >
-              <ResultRaid
-                data={raidsAchievements.data}
-                animateResult={animateResult}
-              />
-            </ResultContainer>
-          )}
+        {isDataReceived && (
+          <ResultContainer isResultActive={isDataReceived ? true : false}>
+            <ResultRaid
+              data={raidsAchievements.data}
+              animateResult={animateResult}
+            />
+          </ResultContainer>
+        )}
       </React.Fragment>
     );
   }

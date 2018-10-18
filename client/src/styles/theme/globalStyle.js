@@ -5,6 +5,7 @@ import Anduin from "../../assets/images/anduin-opt.jpg";
 
 export const global = {
   borderRadius: "3px",
+  borderWidth: "2px",
   maxMobile: "767px",
   minTablet: "768px",
   maxTablet: "1023px",
@@ -38,7 +39,7 @@ injectGlobal`
     margin: 0;
     font-family: sans-serif;
   }
-  p, a, input, span {
+  p, a, input, span, label {
     font-family: Roboto, sans-serif;
     font-weight: 300;
     margin: 0;

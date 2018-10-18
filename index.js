@@ -24,8 +24,8 @@ const app = express();
 app.enable("trust proxy");
 
 const limiter = rateLimit({
-    windowMs: 1 * 60 * 1000,
-    max: 50
+  windowMs: 1 * 60 * 1000,
+  max: 50
 });
 
 app.use(limiter);
@@ -97,7 +97,7 @@ async function saveData(ladder, server, response, playersCount, dataToSave) {
       classList
     );
     const arenaSpecStats = await getSpecStats(response, playersCount, specList);
-    const arenaType = ladder + "stats";
+    const arenaType = ladder;
     dataToSave[server] = {};
     dataToSave[server][arenaType] = {};
     dataToSave[server][arenaType]["class"] = arenaClassStats;
@@ -126,11 +126,13 @@ const getLeaderBoards = (ladder, server) => {
       ladder +
       "?locale=en_GB&apikey=" +
       process.env.WOW_API_KEY;
-  } else if(server === "us") {
+  } else if (server === "us") {
     endpoint =
       "https://" +
       server +
-      ".api.battle.net/wow/leaderboard/2v2?locale=en_US&apikey=" +
+      ".api.battle.net/wow/leaderboard/" +
+      ladder +
+      "?locale=en_US&apikey=" +
       process.env.WOW_API_KEY;
   }
   axios
