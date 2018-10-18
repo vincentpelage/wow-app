@@ -102,7 +102,9 @@ class App extends Component {
                     />
                     <Route
                       path="/hauts-faits-pvp"
-                      render={() => <PvpLeaderboard />}
+                      render={() => (
+                        <PvpLeaderboard toggleTheme={this.toggleTheme} />
+                      )}
                     />
                   </Switch>
                 </WrapperSwitch>

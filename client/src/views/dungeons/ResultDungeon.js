@@ -30,9 +30,14 @@ const WrapperResultDungeon = styled.div`
   }
 `;
 
-const WrapperCard = styled.div`
+const WrapperCol = styled.div`
   flex: 0 1 40%;
 `;
+
+const WrapperCard = styled.div`
+  margin: 16px 16px 20px 10px;
+`;
+
 const Title = styled.h2`
   color: #fff;
   padding: 10px;
@@ -91,36 +96,36 @@ const ResultDungeon = ({ data, animateResult, children }) => {
     >
       {state => (
         <WrapperResultDungeon animateResult={animateResult}>
-          <WrapperCard>
+          <WrapperCol>
+            <Title>Heroic Dungeons</Title>
+
             {data &&
-              Object.keys(data).length > 0 && (
-                <div>
-                  <Title>Heroic Dungeons</Title>
-                  {dataDungeonHeroic.map((dungeonHeroic, id) => (
-                    <Card key={id} isDone={dungeonHeroic.done}>
-                      {dungeonHeroic.done ? <Tag>done</Tag> : null}
-                      <CardTitle>{dungeonHeroic.name}</CardTitle>
-                      <CardDescription>{dungeonHeroic.desc}</CardDescription>
-                    </Card>
-                  ))}
-                </div>
-              )}
-          </WrapperCard>
-          <WrapperCard>
+              Object.keys(data).length > 0 &&
+              dataDungeonHeroic.map((dungeonHeroic, id) => (
+                <WrapperCard>
+                  <Card key={id} isDone={dungeonHeroic.done}>
+                    {dungeonHeroic.done ? <Tag>done</Tag> : null}
+                    <CardTitle>{dungeonHeroic.name}</CardTitle>
+                    <CardDescription>{dungeonHeroic.desc}</CardDescription>
+                  </Card>
+                </WrapperCard>
+              ))}
+          </WrapperCol>
+          <WrapperCol>
+            <Title>Mythical Dungeons</Title>
+
             {data &&
-              Object.keys(data).length > 0 && (
-                <div>
-                  <Title>Mythical Dungeons</Title>
-                  {dataDungeonMythic.map((dungeonMytic, id) => (
-                    <Card key={id} isDone={dungeonMytic.done}>
-                      {dungeonMytic.done ? <Tag>done</Tag> : null}
-                      <CardTitle>{dungeonMytic.name}</CardTitle>
-                      <CardDescription>{dungeonMytic.desc}</CardDescription>
-                    </Card>
-                  ))}
-                </div>
-              )}
-          </WrapperCard>
+              Object.keys(data).length > 0 &&
+              dataDungeonMythic.map((dungeonMytic, id) => (
+                <WrapperCard>
+                  <Card key={id} isDone={dungeonMytic.done}>
+                    {dungeonMytic.done ? <Tag>done</Tag> : null}
+                    <CardTitle>{dungeonMytic.name}</CardTitle>
+                    <CardDescription>{dungeonMytic.desc}</CardDescription>
+                  </Card>
+                </WrapperCard>
+              ))}
+          </WrapperCol>
         </WrapperResultDungeon>
       )}
     </CSSTransition>

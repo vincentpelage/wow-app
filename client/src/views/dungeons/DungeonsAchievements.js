@@ -162,6 +162,11 @@ class DungeonsAchievements extends React.Component {
   render() {
     const { toggleTheme, dungeonsAchievements } = this.props;
     const { errorMessage, isErrorDisplay, animateResult } = this.state;
+    const isDataReceived =
+      !isErrorDisplay &&
+      dungeonsAchievements.data &&
+      !dungeonsAchievements.data.error &&
+      Object.keys(dungeonsAchievements.data).length > 0;
 
     const {
       characterName,
@@ -197,14 +202,8 @@ class DungeonsAchievements extends React.Component {
         </ErrorMessage>
         <Nav toggleTheme={toggleTheme} />
         <Banner
-          title="Dungeon Achievements"
-          isResultActive={
-            dungeonsAchievements.data &&
-            !isErrorDisplay &&
-            !dungeonsAchievements.data.error
-              ? true
-              : false
-          }
+          title="dungeon achievements"
+          isResultActive={isDataReceived ? true : false}
         >
           <WrapperForm>
             <WrapperInput>
@@ -248,25 +247,14 @@ class DungeonsAchievements extends React.Component {
           </WrapperForm>
         </Banner>
 
-        {!isErrorDisplay &&
-          dungeonsAchievements.data &&
-          !dungeonsAchievements.data.error &&
-          Object.keys(dungeonsAchievements.data).length > 0 && (
-            <ResultContainer
-              isResultActive={
-                dungeonsAchievements.data &&
-                !isErrorDisplay &&
-                !dungeonsAchievements.data.error
-                  ? true
-                  : false
-              }
-            >
-              <ResultDungeon
-                data={dungeonsAchievements.data}
-                animateResult={animateResult}
-              />
-            </ResultContainer>
-          )}
+        {isDataReceived && (
+          <ResultContainer isResultActive={isDataReceived ? true : false}>
+            <ResultDungeon
+              data={dungeonsAchievements.data}
+              animateResult={animateResult}
+            />
+          </ResultContainer>
+        )}
       </React.Fragment>
     );
   }
