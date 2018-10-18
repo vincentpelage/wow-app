@@ -94,32 +94,28 @@ const ResultRaid = ({ data, animateResult, children }) => {
           <WrapperCol>
             <Title>Heroic Raids</Title>
 
-            {data &&
-              Object.keys(data).length > 0 &&
-              dataRaidHeroic.map((raidHeroic, id) => (
-                <WrapperCard>
-                  <Card key={id} isDone={raidHeroic.done}>
-                    {raidHeroic.done ? <Tag>done</Tag> : null}
-                    <CardTitle>{raidHeroic.name}</CardTitle>
-                    <CardDescription>{raidHeroic.desc}</CardDescription>
-                  </Card>
-                </WrapperCard>
-              ))}
+            {dataRaidHeroic.map((raidHeroic, id) => (
+              <WrapperCard>
+                <Card key={id} isDone={raidHeroic.done}>
+                  {raidHeroic.done ? <Tag>done</Tag> : null}
+                  <CardTitle>{raidHeroic.name}</CardTitle>
+                  <CardDescription>{raidHeroic.desc}</CardDescription>
+                </Card>
+              </WrapperCard>
+            ))}
           </WrapperCol>
           <WrapperCol>
             <Title>Mythical Raids</Title>
 
-            {data &&
-              Object.keys(data).length > 0 &&
-              dataRaidMythic.map((raidMytic, id) => (
-                <WrapperCard>
-                  <Card key={id} isDone={raidMytic.done}>
-                    {raidMytic.done ? <Tag>done</Tag> : null}
-                    <CardTitle>{raidMytic.name}</CardTitle>
-                    <CardDescription>{raidMytic.desc}</CardDescription>
-                  </Card>
-                </WrapperCard>
-              ))}
+            {dataRaidMythic.map((raidMytic, id) => (
+              <WrapperCard>
+                <Card key={id} isDone={raidMytic.done}>
+                  {raidMytic.done ? <Tag>done</Tag> : null}
+                  <CardTitle>{raidMytic.name}</CardTitle>
+                  <CardDescription>{raidMytic.desc}</CardDescription>
+                </Card>
+              </WrapperCard>
+            ))}
           </WrapperCol>
         </WrapperResultRaid>
       )}

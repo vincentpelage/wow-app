@@ -1,26 +1,26 @@
-const resultFromBDD = [
-  {
-    discipline: ["priest", "11.69"]
-  },
-  {
-    assassination: ["rogue", "9.87"]
-  },
-  {
-    frostMage: ["mage", "9.21"]
-  },
-  {
-    arms: ["warrior", "6.53"]
-  },
-  {
-    holy: ["paladin", "5.11"]
-  },
-  {
-    balance: ["druid", "5.05"]
-  },
-  {
-    restorationDruid: ["druid", "4.88"]
-  }
-];
+// const resultFromBDD = [
+//   {
+//     discipline: ["priest", "11.69"]
+//   },
+//   {
+//     assassination: ["rogue", "9.87"]
+//   },
+//   {
+//     frostMage: ["mage", "9.21"]
+//   },
+//   {
+//     arms: ["warrior", "6.53"]
+//   },
+//   {
+//     holy: ["paladin", "5.11"]
+//   },
+//   {
+//     balance: ["druid", "5.05"]
+//   },
+//   {
+//     restorationDruid: ["druid", "4.88"]
+//   }
+// ];
 
 export const renameSpec = resultFromBDD => {
   const newObj = resultFromBDD.map(obj => {
@@ -31,7 +31,7 @@ export const renameSpec = resultFromBDD => {
         break;
 
       case "restorationDruid":
-        renameSpec = "restauration";
+        renameSpec = "restoration";
         break;
 
       case "protectionWarrior":
@@ -48,7 +48,7 @@ export const renameSpec = resultFromBDD => {
 
     return {
       spec: renameSpec,
-      classe: obj[Object.keys(obj)[0]][0],
+      class: obj[Object.keys(obj)[0]][0],
       stat: obj[Object.keys(obj)[0]][1]
     };
   });

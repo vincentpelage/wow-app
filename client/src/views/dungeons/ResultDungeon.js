@@ -99,32 +99,28 @@ const ResultDungeon = ({ data, animateResult, children }) => {
           <WrapperCol>
             <Title>Heroic Dungeons</Title>
 
-            {data &&
-              Object.keys(data).length > 0 &&
-              dataDungeonHeroic.map((dungeonHeroic, id) => (
-                <WrapperCard>
-                  <Card key={id} isDone={dungeonHeroic.done}>
-                    {dungeonHeroic.done ? <Tag>done</Tag> : null}
-                    <CardTitle>{dungeonHeroic.name}</CardTitle>
-                    <CardDescription>{dungeonHeroic.desc}</CardDescription>
-                  </Card>
-                </WrapperCard>
-              ))}
+            {dataDungeonHeroic.map((dungeonHeroic, id) => (
+              <WrapperCard>
+                <Card key={id} isDone={dungeonHeroic.done}>
+                  {dungeonHeroic.done ? <Tag>done</Tag> : null}
+                  <CardTitle>{dungeonHeroic.name}</CardTitle>
+                  <CardDescription>{dungeonHeroic.desc}</CardDescription>
+                </Card>
+              </WrapperCard>
+            ))}
           </WrapperCol>
           <WrapperCol>
             <Title>Mythical Dungeons</Title>
 
-            {data &&
-              Object.keys(data).length > 0 &&
-              dataDungeonMythic.map((dungeonMytic, id) => (
-                <WrapperCard>
-                  <Card key={id} isDone={dungeonMytic.done}>
-                    {dungeonMytic.done ? <Tag>done</Tag> : null}
-                    <CardTitle>{dungeonMytic.name}</CardTitle>
-                    <CardDescription>{dungeonMytic.desc}</CardDescription>
-                  </Card>
-                </WrapperCard>
-              ))}
+            {dataDungeonMythic.map((dungeonMytic, id) => (
+              <WrapperCard>
+                <Card key={id} isDone={dungeonMytic.done}>
+                  {dungeonMytic.done ? <Tag>done</Tag> : null}
+                  <CardTitle>{dungeonMytic.name}</CardTitle>
+                  <CardDescription>{dungeonMytic.desc}</CardDescription>
+                </Card>
+              </WrapperCard>
+            ))}
           </WrapperCol>
         </WrapperResultDungeon>
       )}
