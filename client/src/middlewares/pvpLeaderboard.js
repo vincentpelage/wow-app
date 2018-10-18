@@ -1,22 +1,17 @@
 import axios from "axios";
 
 import { GET_PVP_LEADERBOARD } from "../actions/pvpLeaderboard/actionTypes";
-import {
-  getPvpLeaderboardFromAPi,
-  setLoader
-} from "../actions/pvpLeaderboard/pvpLeaderboard";
+import { getPvpLeaderboardFromAPi } from "../actions/pvpLeaderboard/pvpLeaderboard";
+import { setLoaderPvp } from "../actions/pvpLeaderboard/pvpLeaderboard";
 
 const pvpLeaderboardMiddleware = store => next => action => {
   switch (action.type) {
     case GET_PVP_LEADERBOARD: {
-      store.dispatch(setLoader(true));
-      console.log("middleware");
+      store.dispatch(setLoaderPvp(true));
       axios
         .get("/pvpLeaderBoard")
         .then(({ data }) => {
-          store
-            .dispatch(getPvpLeaderboardFromAPi(data))
-            .then(() => store.dispatch(setLoader(false)));
+          store.dispatch(getPvpLeaderboardFromAPi(data), setLoaderPvp(false));
         })
         .catch(() => {
           console.log("Request did not work");

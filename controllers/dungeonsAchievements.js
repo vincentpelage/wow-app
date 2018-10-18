@@ -14,7 +14,6 @@ module.exports = function dungeonsAchievements(req, res) {
     .get(endpoint)
     .then(function(response) {
       // handle success
-      console.log("Got Achievements Datas from API");
       const apiAchievementsList =
         response.data.achievements.achievementsCompleted;
 
@@ -23,7 +22,6 @@ module.exports = function dungeonsAchievements(req, res) {
           ? { ...obj, done: true }
           : { ...obj, done: false };
       });
-      console.log(result);
       res.send(result);
     })
     .catch(function(error) {

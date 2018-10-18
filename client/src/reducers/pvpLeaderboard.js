@@ -1,6 +1,7 @@
 import {
     GET_PVP_LEADERBOARD_FROM_API,
-    SET_LOADER
+    SET_LOADER_PVP,
+
 } from "../actions/pvpLeaderboard/actionTypes";
 
 const initialState = {
@@ -15,7 +16,7 @@ export default (state = initialState, action) => {
                 data: action.payload,
                 isLoading: false
             };
-        case SET_LOADER:
+        case SET_LOADER_PVP:
             return {
                 ...state,
                 isLoading: action.isLoading
