@@ -25,17 +25,20 @@ const WrapperResultRaid = styled.div`
   }
 
   @media (min-width: ${global.minTablet}) {
-    width: 75%;
+    max-width: 1092px;
     flex-direction: row;
   }
 `;
 
 const WrapperCol = styled.div`
-  flex: 0 1 40%;
+  flex: 1 1 50%;
+  @media (min-width: ${global.minTablet}) {
+    margin: 0 24px 24px 24px;
+  }
 `;
 
 const WrapperCard = styled.div`
-  margin: 16px 16px 20px 10px;
+  margin-bottom: 20px;
 `;
 
 const Title = styled.h2`
@@ -43,7 +46,7 @@ const Title = styled.h2`
   padding: 10px;
   background-color: transparent;
   display: inline-block;
-  margin: 10px;
+  margin-bottom: 24px;
   border: 1px solid;
   border-radius: 3px;
   text-transform: uppercase;
@@ -56,6 +59,7 @@ const CardTitle = styled.p`
   text-transform: uppercase;
   letter-spacing: 1.5px;
   font-weight: 400;
+
   @media (min-width: ${global.minTablet}) {
     font-size: 14px;
   }
@@ -68,7 +72,7 @@ const CardDescription = styled.p`
 `;
 
 const Tag = styled.span`
-  background-color: ${props => props.theme.light};
+  background-color: ${props => props.theme.flash};
   color: white;
   font-size: 11px;
   padding: 4px 8px;
@@ -95,8 +99,8 @@ const ResultRaid = ({ data, animateResult, children }) => {
             <Title>Heroic Raids</Title>
 
             {dataRaidHeroic.map((raidHeroic, id) => (
-              <WrapperCard>
-                <Card key={id} isDone={raidHeroic.done}>
+              <WrapperCard key={id}>
+                <Card isDone={raidHeroic.done}>
                   {raidHeroic.done ? <Tag>done</Tag> : null}
                   <CardTitle>{raidHeroic.name}</CardTitle>
                   <CardDescription>{raidHeroic.desc}</CardDescription>
@@ -108,8 +112,8 @@ const ResultRaid = ({ data, animateResult, children }) => {
             <Title>Mythical Raids</Title>
 
             {dataRaidMythic.map((raidMytic, id) => (
-              <WrapperCard>
-                <Card key={id} isDone={raidMytic.done}>
+              <WrapperCard key={id}>
+                <Card isDone={raidMytic.done}>
                   {raidMytic.done ? <Tag>done</Tag> : null}
                   <CardTitle>{raidMytic.name}</CardTitle>
                   <CardDescription>{raidMytic.desc}</CardDescription>

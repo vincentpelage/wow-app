@@ -25,17 +25,20 @@ const WrapperResultDungeon = styled.div`
   }
 
   @media (min-width: ${global.minTablet}) {
-    width: 75%;
+    max-width: 1092px;
     flex-direction: row;
   }
 `;
 
 const WrapperCol = styled.div`
-  flex: 0 1 40%;
+  flex: 1 1 50%;
+  @media (min-width: ${global.minTablet}) {
+    margin: 0 24px 24px 24px;
+  }
 `;
 
 const WrapperCard = styled.div`
-  margin: 16px 16px 20px 10px;
+  margin-bottom: 20px;
 `;
 
 const Title = styled.h2`
@@ -43,7 +46,7 @@ const Title = styled.h2`
   padding: 10px;
   background-color: transparent;
   display: inline-block;
-  margin: 10px;
+  margin-bottom: 24px;
   border: 1px solid;
   border-radius: 3px;
   text-transform: uppercase;
@@ -69,7 +72,7 @@ const CardDescription = styled.p`
 `;
 
 const Tag = styled.span`
-  background-color: ${props => props.theme.light};
+  background-color: ${props => props.theme.flash};
   color: white;
   font-size: 11px;
   padding: 4px 8px;
@@ -100,8 +103,8 @@ const ResultDungeon = ({ data, animateResult, children }) => {
             <Title>Heroic Dungeons</Title>
 
             {dataDungeonHeroic.map((dungeonHeroic, id) => (
-              <WrapperCard>
-                <Card key={id} isDone={dungeonHeroic.done}>
+              <WrapperCard key={id}>
+                <Card isDone={dungeonHeroic.done}>
                   {dungeonHeroic.done ? <Tag>done</Tag> : null}
                   <CardTitle>{dungeonHeroic.name}</CardTitle>
                   <CardDescription>{dungeonHeroic.desc}</CardDescription>
@@ -113,8 +116,8 @@ const ResultDungeon = ({ data, animateResult, children }) => {
             <Title>Mythical Dungeons</Title>
 
             {dataDungeonMythic.map((dungeonMytic, id) => (
-              <WrapperCard>
-                <Card key={id} isDone={dungeonMytic.done}>
+              <WrapperCard key={id}>
+                <Card isDone={dungeonMytic.done}>
                   {dungeonMytic.done ? <Tag>done</Tag> : null}
                   <CardTitle>{dungeonMytic.name}</CardTitle>
                   <CardDescription>{dungeonMytic.desc}</CardDescription>

@@ -53,9 +53,6 @@ const Search = styled.span`
 
 class DungeonsAchievements extends React.Component {
   state = {
-    // characterName: "",
-    // characterKingdom: "",
-    // characterRegion: "",
     errorMessage: "",
     isErrorDisplay: false,
     animateResult: false

@@ -5,7 +5,7 @@ export const getRadioButtonCheckedStyles = props => {
   let color = "rgba(255, 255, 255, 0.5)";
 
   if (props.isChecked) {
-    backgroundColor = props.theme.medium;
+    backgroundColor = props.theme.light;
     color = "rgba(255, 255, 255, 0.9)";
   }
 

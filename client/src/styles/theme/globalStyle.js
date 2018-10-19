@@ -17,6 +17,7 @@ export const themeHorde = {
   light: "#6C0E16",
   medium: "#590612",
   dark: "#38040E",
+  flash: "#BB9457",
   image: Sylvanas
 };
 
@@ -24,6 +25,7 @@ export const themeAlliance = {
   light: "#1F2C5D",
   medium: "#1B264F",
   dark: "#131B39",
+  flash: "#DB9D47",
   image: Anduin
 };
 
