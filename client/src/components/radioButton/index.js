@@ -12,7 +12,7 @@ const Label = styled.label`
   transition: all 200ms ease-in-out;
   ${getRadioButtonCheckedStyles};
   & + label {
-    border-left: solid ${global.borderWidth} ${props => props.theme.medium};
+    border-left: solid ${global.borderWidth} ${props => props.theme.light};
   }
   @media (min-width: ${global.minTablet}) {
     font-size: 12px;

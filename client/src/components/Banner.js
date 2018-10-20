@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { global } from "../styles/theme/globalStyle";
 
 const WrapperBanner = styled.div`
   background-image: url(${props => props.theme.image});
   width: 100%;
-  height: ${props => (props.isResultActive ? "600px" : "100vh")};
+  height: ${props => (props.isResultActive ? "500px" : "100vh")};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,6 +27,9 @@ const WrapperBanner = styled.div`
     opacity: 0.6;
     transition: all ease 0.3s;
     background: #3d2b3d;
+  }
+  @media (min-width: ${global.minTablet}) {
+    height: ${props => (props.isResultActive ? "600px" : "100vh")};
   }
 `;
 

@@ -53,11 +53,9 @@ const Search = styled.span`
 
 class RaidsAchievements extends React.Component {
   state = {
-    // characterName: "",
-    // characterKingdom: "",
-    // characterRegion: "",
     errorMessage: "",
-    isErrorDisplay: false
+    isErrorDisplay: false,
+    animateResult: false
   };
 
   componentDidUpdate(prevProps) {

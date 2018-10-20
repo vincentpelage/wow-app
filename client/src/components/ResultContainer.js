@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 const WrapperResult = styled.div`
   background-color: ${props => props.theme.dark};
-  width: 100%;
-  min-height: 500px;
+  padding: 24px;
   display: ${props => (props.isResultActive ? "block" : "none")};
 `;
 

@@ -2,11 +2,14 @@ import React from "react";
 import RadioButton, { RadioButtonGroup } from "../../components/radioButton";
 import { PVPTYPE, PVPREGION, PVPLADDER, PVPFILTER } from "./PvpLeaderboard";
 import styled from "styled-components";
+import { global } from "../../styles/theme/globalStyle";
 
 const Form = styled.div`
-  padding-top: 32px;
+  padding-top: 12px;
   padding-bottom: 12px;
-  margin: auto;
+  @media (min-width: ${global.minTablet}) {
+    margin: 12px;
+  }
 `;
 
 const Filter = ({
