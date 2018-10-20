@@ -222,17 +222,17 @@ class Nav extends Component {
             <IconHome />
             <Name>Home</Name>
           </HomeLink>
-          <MenuLink to="/hauts-faits-donjon" activeClassName="active">
+          <MenuLink to="/dungeon-achievements" activeClassName="active">
             <IconDungeon />
             <Name>Dungeon Achievements</Name>
           </MenuLink>
-          <MenuLink to="/hauts-faits-raid" activeClassName="active">
+          <MenuLink to="/raid-achievements" activeClassName="active">
             <IconRaid />
             <Name>Raid Achievements</Name>
           </MenuLink>
-          <MenuLink to="/hauts-faits-pvp" activeClassName="active">
+          <MenuLink to="/pvp-leaderboard" activeClassName="active">
             <IconPvp />
-            <Name>PVP Achievements</Name>
+            <Name>PVP Leaderboard</Name>
           </MenuLink>
         </WrapperNav>
 
