@@ -26,7 +26,7 @@ const Visuel = styled(Link)`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.8s ease-in-out;
   z-index: 0;
   cursor: pointer;
   &::after {
@@ -37,7 +37,7 @@ const Visuel = styled(Link)`
     width: 100%;
     height: 100%;
     opacity: 0.6;
-    transition: all ease 0.3s;
+    transition: all ease 0.8s;
   }
   &:hover {
     flex-basis: 95%;
@@ -53,7 +53,7 @@ const Horde = Visuel.extend`
   }
   & > div {
     background: ${themeHorde.medium};
-    transition: all 0.3s ease;
+    transition: all 0.8s ease;
   }
   &:hover {
     &::after {
@@ -73,7 +73,7 @@ const Alliance = Visuel.extend`
   }
   & > div {
     background: ${themeAlliance.medium};
-    transition: all 0.3s ease;
+    transition: all 0.8s ease;
   }
   &:hover {
     &::after {
