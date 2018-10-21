@@ -4,7 +4,10 @@ import { global } from "../../styles/theme/globalStyle";
 
 const RadioButtonWrapper = styled.div`
   border: solid ${global.borderWidth} ${props => props.theme.light};
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   border-radius: ${global.borderRadius};
   overflow: hidden;
   margin-right: ${props => (props.margin ? props.margin : "0")};

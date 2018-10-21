@@ -63,6 +63,7 @@ injectGlobal`
     font-size: 45px;
     margin: 0;
     letter-spacing: 3px;
+    padding: 0 16px;
     @media (min-width: ${global.minTablet}) {
       font-size: 55px;
     }

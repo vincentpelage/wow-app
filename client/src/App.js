@@ -66,6 +66,7 @@ class App extends Component {
     setLocalStorageTheme(theme);
     this.setState({ theme });
   };
+
   render() {
     if (Object.keys(this.state.theme).length === 0) {
       return null;

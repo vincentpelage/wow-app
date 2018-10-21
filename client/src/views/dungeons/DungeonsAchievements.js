@@ -33,6 +33,7 @@ const WrapperForm = styled.div`
 `;
 
 const WrapperInput = styled.div`
+  flex: 1 0 auto;
   margin: 0 0 16px 0;
   @media (min-width: ${global.minTablet}) {
     margin: 0 16px 0 0;

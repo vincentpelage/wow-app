@@ -35,15 +35,21 @@ const Title = styled.h1`
   color: white;
   z-index: 1;
   margin-bottom: 16px;
+  text-align: center;
+`;
+
+const WrapperButton = styled(Link)`
+  z-index: 1;
+  text-decoration: none;
 `;
 
 const NotFound = () => {
   return (
     <Wrapper>
       <Title>this page doesn't exist !</Title>
-      <Link exact to="/">
-        <BannerButton>Go back before it's too late</BannerButton>
-      </Link>
+      <WrapperButton exact to="/">
+        <BannerButton size="large">Go back before it's too late</BannerButton>
+      </WrapperButton>
     </Wrapper>
   );
 };

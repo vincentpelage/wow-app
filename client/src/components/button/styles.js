@@ -61,7 +61,6 @@ export const getButtonStyles = props => {
     text-decoration: none;
     transition: all 200ms ease-in-out;
     outline: none;
-    z-index: 1;
     @media (min-width: ${global.minTablet}) {
       font-size: ${tabletSize}px;
       height: ${height};
@@ -108,7 +107,6 @@ export const getButtonStateBannerStyles = props => {
     transition: none;
     letter-spacing: 1px;
     position: relative;
-    z-index: 1;
     &::after {
       content: "";
       position: absolute;

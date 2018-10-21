@@ -32,6 +32,9 @@ export const StylingSelect = styled(ReactSelect)`
     border-radius: ${global.borderRadius};
   }
   & .react-select__menu-list {
-    max-height: 250px;
+    max-height: 100px;
+    @media (min-width: ${global.minTablet}) {
+      max-height: 250px;
+    }
   }
 `;

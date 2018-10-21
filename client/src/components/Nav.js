@@ -25,7 +25,6 @@ const WrapperBurger = styled.a`
   top: 10px;
   z-index: 3;
   width: 40px;
-  height: 24px;
   @media (min-width: ${global.minTablet}) {
     display: none;
   }
